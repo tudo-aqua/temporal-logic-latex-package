@@ -301,5 +301,6 @@ TSWLatexianTemp*
 #*Notes.bib
 
 # exclude generated files
+cmftbl.hd
 cmftbl.pdf
 cmftbl.sty
