@@ -10,7 +10,7 @@ width in order for them to align properly when printed one below the other.
 
 ## Copyright and License
 
-Copyright (C) 2024 Dominik Mäckel
+Copyright (C) 2024 Dominik Mäckel and Till Schallau
 
 This work may be distributed and/or modified under the conditions of the LaTeX
 Project Public License, either version 1.3 of this license or (at your option)
