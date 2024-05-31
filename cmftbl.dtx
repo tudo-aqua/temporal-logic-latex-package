@@ -12,9 +12,10 @@
 % and version 1.3 or later is part of all distributions of LaTeX
 % version 2005/12/01 or later.
 %
-% This work has the LPPL maintenance status " maintained".
+% This work has the LPPL maintenance status "maintained".
 %
-% The Current Maintainer of this work is Dominik Mäckel<dominik.maeckel@tu-dortmund.de>.
+% The Current Maintainer of this work is Dominik Mäckel
+% <dominik.maeckel@tu-dortmund.de>.
 %
 % This work consists of the files cmftbl.dtx and cmftbl.ins
 % and the derived file cmftbl.sty.
@@ -47,7 +48,7 @@
 %   Lecture Notes in Computer Science, vol 14627. Springer, Cham.
 %   https://doi.org/10.1007/978-3-031-60698-4\_15}. The package defines various
 %   functions with variants in order to include or omit optional parameters to
-%   the operators like the optional interval. All operators are resized to the
+%   the operators like the optional interval. All operators are sized to the
 %   same width in order for them to align properly when printed one below the
 %   other.
 % \end{abstract}
@@ -56,9 +57,53 @@
 % \tableofcontents
 % \clearpage
 %
-% \section{Future LTL symbols}
-%   \emph{Future LTL}, or simply \emph{LTL}, defines operators to argue about the
-%   future. This includes the following operators.
+% \section{Introduction}
+% \subsection{Counting Metric First Order Temporal Logic}
+%    \emph{Counting Metric First Order Temporal Logic} (CMFTBL) argues about
+%    finite traces of states. It is an extension of \emph{Metric First Order
+%    Temporal logic}, which itself build upon \emph{Metric Time Logic} and
+%    ultimately on \emph{Linear Time Logic}. All these logics extend the base
+%    with further operators and features.
+%
+% \subsection{Basic usage}
+%   This package defines the symbols used in the logics as
+%   \emph{MathOperators}. Therefore the symbols, as well as the commands, have
+%   to be used in math mode. To use normal text in the parameters \cs{mathrm}
+%   may be used to switch back to text mode.
+%
+%   the symbols come in two variants. A standalone version for metioning in
+%   text without additional formula spacing as described in
+%   sect.~\ref{sec:standalone_symbols} and in a formula version also providing
+%   additional parameters as described in sect.~\ref{sec:future_ltl} --
+%   sect.~\ref{sec:cmftbl_extension}. The formula version should always be
+%   preferred over the standalone symbols in formulas as they provide
+%   additional spaces and explicitly enforce the correct usage of superscript
+%   and subscript via mandatory parameters.
+%
+% \subsection{Manual structure}
+%   This manual is structured as follows. First, the symbols for \emph{Future
+%   LTL} and \emph{Past LTL} are introducted in
+%   sect.~\ref{sec:future_ltl}~and~\ref{sec:past_ltl}. The additional intervals
+%   from \emph{MTL} are described in sect.~\ref{sec:mtl_extension}. Finally the
+%   operators new in \emph{CMFTBL} are described in
+%   sect.\ref{sec:cmftbl_extension}. Sect.~\ref{sec:usage} shows the usage of
+%   the symbols in formulas. Sect.~\ref{sec:standalone_symbols} closes the
+%   command definitions with the standalone symbols for usage in text.%
+%
+% \subsection{Dependencies}
+%   The package loads the following dependencies:
+%   \begin{itemize}
+%     \item \emph{expl3} For \LaTeX 3 support.
+%     \item \emph{xparse} For parsing the mandatory and optional arguments.
+%     \item \emph{tikz} For rendering some symbols.
+%   \end{itemize}
+%
+% \clearpage
+% \section{Symbol definitions}
+% \subsection{Future LTL symbols}
+% \label{sec:future_ltl}
+%   \emph{Future LTL}, or simply \emph{LTL}, defines operators to argue about
+%   the future. This includes the following operators.
 % \begin{function}{
 %   \ceventually,
 %   \cglobally,
@@ -85,7 +130,8 @@
 %   holds.
 % \end{itemize}
 %
-% \section{Past LTL symbols}
+% \subsection{Past LTL symbols}
+% \label{sec:past_ltl}
 % \emph{Past LTL} defines operators analogous to \emph{Future LTL} to argue
 % about the past. The symbold are identical, but filled solid black.
 % \begin{function}{ ,
@@ -116,7 +162,8 @@
 % \end{itemize}
 %
 % \clearpage
-% \section{MTL extension}
+% \subsection{MTL extension}
+% \label{sec:mtl_extension}
 % The \emph{Future LTL} and \emph{Past LTL} operators may be extended with an
 % optional interval to form \emph{MTL}.
 % \begin{function}{
@@ -147,7 +194,8 @@
 % considered to be $[0, \infty)$. The first component of the interval always
 % indicates the earlier state for both future and past operators.
 %
-% \section{CMFTBL extension}
+% \subsection{CMFTBL extension}
+% \label{sec:cmftbl_extension}
 % \emph{MTL} gets extended by the operators \emph{minPrevalence},
 % \emph{maxPrevalence}, and their past forms, and the \emph{binding} operator.
 % \emph{minPrevalence} and \emph{maxPrevalence} take the desired precentage as
@@ -193,6 +241,7 @@
 %
 % \clearpage
 % \section{Usage in fomulas}
+% \label{sec:usage}
 % The symbols may be directly used in math mode to create composite formulas.
 % For the unary formulas, the term $\phi$ should directly follow the symbol:
 % \begin{syntax}
@@ -225,6 +274,7 @@
 % \end{syntax}
 %
 % \section{Standalone symbols}
+% \label{sec:standalone_symbols}
 % The package defines all symbols as a standalone version as
 % \emph{MathOperators} without additional spacing around for the usage in text.
 %
@@ -263,7 +313,29 @@
 %
 % \clearpage
 %
+% \section{License}
+% \begin{center}
+%   Copyright (C) 2024\\
+%   Dominik Mäckel and Till Schallau\\[\baselineskip]
+%
+%   This work may be distributed and/or modified under the conditions of the\\ %   \LaTeX~Project Public License, either version 1.3 of this license\\
+%   or (at your option) any later version.\\[\baselineskip]
+%
+%   The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt\\
+%   and version 1.3 or later is part of all distributions of
+%   \LaTeX~version 2005/12/01 or later.\\[\baselineskip]
+%
+%   This work has the LPPL maintenance status ''maintained''.\\[\baselineskip]
+%
+%   The Current Maintainer of this work is\\
+%   Dominik Mäckel <dominik.maeckel@tu-dortmund.de>.\\[\baselineskip]
+%
+%   This work consists of the files cmftbl.dtx and cmftbl.ins\\
+%   and the derived file cmftbl.sty.
+% \end{center}
 % \section{Sourcecode}
+% \label{sec:sourcecode}
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
