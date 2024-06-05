@@ -312,6 +312,25 @@
 % \end{function}
 %
 % \clearpage
+% \section{Operator scaling}
+% \label{sec:operator_scaling}
+% The operators scale automatically with the current text size:\\[\baselineskip]
+%
+% \begin{tabular}{ll}
+%   \Huge\cs{Huge} & \Huge$\ceventually[[0,1]] \phi$\\
+%   \huge\cs{huge} & \huge$\ceventually[[0,1]] \phi$\\
+%   \LARGE\cs{LARGE} & \LARGE$\ceventually[[0,1]] \phi$\\
+%   \Large\cs{Large} & \Large$\ceventually[[0,1]] \phi$\\
+%   \large\cs{large} & \large$\ceventually[[0,1]] \phi$\\
+%   \normalsize\cs{normalsize} & \normalsize$\ceventually[[0,1]] \phi$\\
+%   \small\cs{small} & \small$\ceventually[[0,1]] \phi$\\
+%   \footnotesize\cs{footnotesize} & \footnotesize$\ceventually[[0,1]] \phi$\\
+%   \scriptsize\cs{scriptsize} & \scriptsize$\ceventually[[0,1]] \phi$\\
+%   \tiny\cs{tiny} & \tiny$\ceventually[[0,1]] \phi$
+% \end{tabular}
+%
+% \normalsize
+% \clearpage
 %
 % \section{License}
 % \begin{center}
@@ -351,16 +370,12 @@
 }
 
 \cs_new:Nn \__@@_op_sup_sub:Nnn {
-  \vcenter {
-    \hbox {
       \ensuremath {
         #1
         \tl_if_empty:nF { #2 } { \c_math_superscript_token { \,#2 } }
         \tl_if_empty:nF { #3 } { \c_math_subscript_token { \,#3 } }
         \,
       }
-    }
-  }
 }
 \cs_generate_variant:Nn \__@@_op_sup_sub:Nnn { cnn }
 
@@ -373,30 +388,72 @@
 \cs_new:Nn \__@@_op:N { \__@@_op_sup_sub:Nnn { #1 } { } { } }
 \cs_generate_variant:Nn \__@@_op:N { c }
 
+\dim_new:N \__@@_fht_dim
+\cs_new:Nn \__@@_ex: { \dim_use:N \__@@_fht_dim }
+
+\cs_new:Nn \__@@_render_op:n {
+  \dim_set:Nn \__@@_fht_dim {\fontcharht\font`X}
+  \tikz[execute~at~end~picture={
+       \useasboundingbox (0, 0) rectangle (\__@@_ex:, \__@@_ex:);
+  }]{
+    \group_begin:
+      \cs_set_eq:NN \EX \__@@_ex:
+      #1
+    \group_end:
+  }
+}
 
 \DeclareMathOperator { \symbeventually } {
-  \tikz{
-    \draw[white] (0,0) -- (0.2, 0);
-    \draw (0.03,0) -- (0.1, 0.1) -- (0.17, 0) -- (0.1,-0.1) -- (0.03,0)--cycle;
+  \__@@_render_op:n {
+     \draw
+       (.5*\EX, 0) --
+       (.2*\EX, .5*\EX) --
+       (.5*\EX, \EX) --
+       (.8*\EX, .5*\EX) --
+       cycle;
   }
 }
 \DeclareMathOperator { \symbonce } {
-  \tikz{
-    \draw[white] (0,0) -- (0.2, 0);
-    \draw[fill] (0.03,0) -- (0.1, 0.1) -- (0.17, 0) -- (0.1,-0.1) -- (0.03,0)--cycle;
-  }
+  \__@@_render_op:n {
+    \draw[fill]
+    (.5*\EX, 0) --
+    (.2*\EX, .5*\EX) --
+    (.5*\EX, \EX) --
+    (.8*\EX, .5*\EX) --
+    cycle;
+}
 }
 \DeclareMathOperator { \symbglobally } {
-  \tikz\draw (0,0) -- (0.2, 0) -- (0.2, 0.2) -- (0,0.2) -- cycle;
+  \__@@_render_op:n {
+    \draw
+    (.15*\EX, .15*\EX)
+    rectangle
+    (.85*\EX, .85*\EX);
+  }
 }
 \DeclareMathOperator { \symbhistorically } {
-  \tikz\draw[fill](0,0) -- (0.2, 0) -- (0.2, 0.2) -- (0,0.2) -- cycle;
+  \__@@_render_op:n {
+    \draw[fill]
+    (.15*\EX, .15*\EX)
+    rectangle
+    (.85*\EX, .85*\EX);
+  }
 }
 \DeclareMathOperator { \symbnext } {
-  \tikz\draw (0,0) circle (0.1);
+  \__@@_render_op:n {
+    \draw
+    (.5*\EX, .5*\EX)
+    circle
+    (.4*\EX);
+  }
 }
 \DeclareMathOperator { \symbprevious } {
-  \tikz\draw[fill] (0,0) circle (0.1);
+  \__@@_render_op:n {
+    \draw[fill]
+    (.5*\EX, .5*\EX)
+    circle
+    (.4*\EX);
+  }
 }
 \DeclareMathOperator { \symbuntil } {
   \ensuremath\mathcal{U}
@@ -405,19 +462,51 @@
   \ensuremath\mathcal{S}
 }
 \DeclareMathOperator { \symbminprevalence } {
-  \tikz\draw (0,0) -- (0.2, 0) -- (0.1, -0.2) -- cycle;
+  \__@@_render_op:n {
+    \draw
+      (.1*\EX, .9*\EX) --
+      (.9*\EX, .9*\EX) --
+      (.5*\EX, .1*\EX) --
+      cycle;
+  }
 }
 \DeclareMathOperator { \symbpastminprevalence } {
-  \tikz\draw[fill] (0,0) -- (0.2, 0) -- (0.1, -0.2) -- cycle;
+  \__@@_render_op:n {
+    \draw[fill]
+    (.1*\EX, .9*\EX) --
+    (.9*\EX, .9*\EX) --
+    (.5*\EX, .1*\EX) --
+    cycle;
+  }
 }
 \DeclareMathOperator { \symbmaxprevalence } {
-  \tikz\draw (0,0) -- (0.2, 0) -- (0.1, 0.2) -- cycle;
+  \__@@_render_op:n {
+    \draw
+    (.1*\EX, .1*\EX) --
+    (.9*\EX, .1*\EX) --
+    (.5*\EX, .9*\EX) --
+    cycle;
 }
+  }
 \DeclareMathOperator { \symbpastmaxprevalence } {
-  \tikz\draw[fill] (0,0) -- (0.2, 0) -- (0.1, 0.2) -- cycle;
+  \__@@_render_op:n {
+    \draw[fill]
+    (.1*\EX, .1*\EX) --
+    (.9*\EX, .1*\EX) --
+    (.5*\EX, .9*\EX) --
+    cycle;
+  }
 }
 \DeclareMathOperator { \symbbind } {
-  \ensuremath\downarrow
+  \__@@_render_op:n {
+    \draw (.5*\EX, \EX) -- (.5*\EX, 0);
+    \draw
+      (.2*\EX, .3*\EX) ..
+      controls (.4*\EX, .2*\EX) ..
+      (.5*\EX, 0) ..
+      controls (.6*\EX, .2*\EX) ..
+      (.8*\EX, .3*\EX);
+  }
 }
 
 \ProvideDocumentCommand { \ceventually } { O{} } {
