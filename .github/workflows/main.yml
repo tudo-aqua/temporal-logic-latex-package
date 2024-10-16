@@ -16,6 +16,11 @@ jobs:
       image: texlive/texlive:latest
 
     steps:
+      - name: Install requirements
+        run: |
+          apt-get update
+          apt-get install -y zip
+    
       - name: Checkout Repository
         uses: actions/checkout@v4
 
@@ -27,7 +32,6 @@ jobs:
 
       - name: Create ZIP archive for CTAN
         run: |
-          apt-get install zip
           mkdir ctan-upload
           cp cmftbl.dtx ctan-upload/
           cp cmftbl.ins ctan-upload/
