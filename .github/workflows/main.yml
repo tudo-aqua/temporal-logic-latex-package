@@ -28,14 +28,16 @@ jobs:
         run: latex cmftbl.ins
       
       - name: Build PDF from DTX
-        run: latexmk -pdf cmftbl.dtx
+        run: | 
+          latexmk -pdf cmftbl.dtx
+          mv cmftbl.odf cmftbl-doc.pdf
 
       - name: Create ZIP archive for CTAN
         run: |
           mkdir ctan-upload
           cp cmftbl.dtx ctan-upload/
           cp cmftbl.ins ctan-upload/
-          cp cmftbl.pdf ctan-upload/
+          cp cmftbl-doc.pdf ctan-upload/
           cp README.md ctan-upload/
           cd ctan-upload
           zip ../cmftbl.zip *
