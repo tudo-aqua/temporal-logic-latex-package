@@ -1,0 +1,51 @@
+name: Build and Package LaTeX DTX and INS Files
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up LaTeX
+        uses: dante-ev/latex-action@latest
+        with:
+          packages: |
+            latexmk
+            l3build
+            xkeyval
+            etoolbox
+            filehook
+
+      - name: Run LaTeX INS file
+        run: latex cmftbl.ins
+      
+      - name: Build PDF from DTX
+        run: latexmk -pdf cmftbl.dtx
+
+      - name: List files
+        run: ls -l
+
+      - name: Create ZIP archive for CTAN
+        run: |
+          mkdir package
+          cp cmftbl.dtx package/
+          cp cmftbl.ins package/
+          cp cmftbl.pdf package/
+          cd package
+          zip ../cmftbl.zip *
+
+      - name: Upload ZIP file
+        uses: actions/upload-artifact@v4
+        with:
+          name: ctan-upload
+          path: cmftbl.zip
