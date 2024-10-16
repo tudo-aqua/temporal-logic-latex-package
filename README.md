@@ -12,7 +12,7 @@ width in order for them to align properly when printed one below the other.
 1. Generate `.sty` file from `.ins` file:  
 	Execute the following command: `latex cmftbl.ins`
 2. Generate documentation:  
-	Execute the following command: `pdflatex cmftbl.dtx`
+	Execute the following command: `latexmk -pdf cmftbl.dtx`
 
 ## Copyright and License
 
