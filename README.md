@@ -8,6 +8,12 @@ functions with variants in order to include or omit optional parameters to
 the operators like the optional interval. All operators are sized to the same
 width in order for them to align properly when printed one below the other.
 
+## Build the package
+1. Generate `.sty` file from `.ins` file:  
+	Execute the following command: `latex cmftbl.ins`
+2. Generate documentation:  
+	Execute the following command: `pdflatex cmftbl.dtx`
+
 ## Copyright and License
 
 Copyright (C) 2024 Dominik Schmid and Till Schallau
