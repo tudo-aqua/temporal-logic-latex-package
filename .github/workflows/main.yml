@@ -36,6 +36,7 @@ jobs:
           cp cmftbl.dtx ctan-upload/
           cp cmftbl.ins ctan-upload/
           cp cmftbl.pdf ctan-upload/
+          cp README.md ctan-upload/
           cd ctan-upload
           zip ../cmftbl.zip *
 
