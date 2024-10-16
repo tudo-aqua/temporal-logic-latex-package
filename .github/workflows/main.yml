@@ -31,8 +31,11 @@ jobs:
           cp cmftbl.dtx ctan-upload/
           cp cmftbl.ins ctan-upload/
           cp cmftbl.pdf ctan-upload/
+          zip cmftbl.zip ctan-upload/*
           cd ctan-upload
-          zip ../cmftbl.zip *
+          ls -a
+          cd ..
+          ls -a
 
       - name: Upload ZIP file
         uses: actions/upload-artifact@v3
