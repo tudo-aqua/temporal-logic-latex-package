@@ -1,4 +1,4 @@
-# stars-cmftbl-latex-package - Latex package for CMFTBL operators
+# Latex package for CMFTBL operators
 
 ## Overview
 
