@@ -12,19 +12,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
+    container:
+      image: texlive/texlive:latest
+
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Set up LaTeX
-        uses: dante-ev/latex-action@latest
-        with:
-          packages: |
-            latexmk
-            l3build
-            xkeyval
-            etoolbox
-            filehook
+        uses: actions/checkout@v4
 
       - name: Run LaTeX INS file
         run: latex cmftbl.ins
@@ -32,20 +25,17 @@ jobs:
       - name: Build PDF from DTX
         run: latexmk -pdf cmftbl.dtx
 
-      - name: List files
-        run: ls -l
-
       - name: Create ZIP archive for CTAN
         run: |
-          mkdir package
-          cp cmftbl.dtx package/
-          cp cmftbl.ins package/
-          cp cmftbl.pdf package/
-          cd package
-          zip ../cmftbl.zip *
+          mkdir ctan-upload
+          cp cmftbl.dtx ctan-upload/
+          cp cmftbl.ins ctan-upload/
+          cp cmftbl.pdf ctan-upload/
+          cd ctan-upload
+          zip ../cmftbl-ctan.zip *
 
       - name: Upload ZIP file
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: ctan-upload
           path: cmftbl.zip
