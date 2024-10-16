@@ -1,0 +1,46 @@
+name: Build and Package LaTeX DTX and INS Files
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    container:
+      image: texlive/texlive:latest
+
+    steps:
+      - name: Install requirements
+        run: |
+          apt-get update
+          apt-get install -y zip
+    
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run LaTeX INS file
+        run: latex cmftbl.ins
+      
+      - name: Build PDF from DTX
+        run: latexmk -pdf cmftbl.dtx
+
+      - name: Create ZIP archive for CTAN
+        run: |
+          mkdir ctan-upload
+          cp cmftbl.dtx ctan-upload/
+          cp cmftbl.ins ctan-upload/
+          cp cmftbl.pdf ctan-upload/
+          cd ctan-upload
+          zip ../cmftbl.zip *
+
+      - name: Upload ZIP file
+        uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: cmftbl.zip
