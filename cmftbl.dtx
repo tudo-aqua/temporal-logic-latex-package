@@ -61,37 +61,40 @@
 % \subsection{Counting Metric First Order Temporal Logic}
 %  \emph{Counting Metric First Order Temporal Logic} (CMFTBL) argues about
 %  finite traces of states. It is an extension of \emph{Metric First Order
-%  Temporal Logic} (MFOTL), which itself is build upon \emph{Metric Time
+%  Temporal Logic} (MFOTL), which itself is based on \emph{Metric Time
 %  Logic} (MTL) and ultimately on \emph{Linear Time Logic} (LTL). All these
 %  logics extend the base with further operators and features.
 %
 % \subsection{Basic usage}
-%  This package defines the symbols used CMFTBL as \emph{MathOperators}.
+%  This package defines the symbols used in CMFTBL as \emph{MathOperators}.
 %  Therefore, the symbols, as well as the commands, have to be used in math
 %  mode. To use normal text in the parameters \cs{mathrm} may be used to
 %  switch back to text mode.
 %
-%  The symbols come in two variants. A standalone version for mentioning in
-%  text without additional formula spacing as described in
-%  Sect.~\ref{sec:standalone_symbols} and in a formula version also providing
-%  additional parameters as described in Sect.~\ref{sec:future_ltl} --
+%  The symbols come in two variants. A standalone version for mentioning logic
+%  symbols in text without additional formula spacing is described in
+%  Sect.~\ref{sec:standalone_symbols} and a formula version, also providing
+%  additional parameters, is described in Sect.~\ref{sec:future_ltl} --
 %  Sect.~\ref{sec:cmftbl_extension}. The formula version should always be
 %  preferred over the standalone symbols in formulas as they provide
 %  additional spaces and explicitly enforce the correct usage of superscript
 %  and subscript via mandatory parameters. The naming scheme of the operators
 %  is chosen such that each command reflects the name of the temporal operator
 %  prefixed with a ``c'' for \textit{CMFTBL}. Standalone symbols, as described
-%  in Sect.~\ref{sec:standalone_symbols}, are prefixed ``csymb''.
+%  in Sect.~\ref{sec:standalone_symbols}, are prefixed with ``csymb''. Those
+%  prefixes are necessary to prevent name clashes with built-in \LaTeX commands.
 %
 % \subsection{Manual structure}
 %  This manual is structured as follows. First, the symbols for \emph{Future
-%  LTL} and \emph{Past LTL} are introducted in
-%  Sect.~\ref{sec:future_ltl}~and~\ref{sec:past_ltl}. The additional intervals
-%  from \emph{MTL} are described in Sect.~\ref{sec:mtl_extension}. Finally the
-%  operators new in \emph{CMFTBL} are described in
-%  Sect.~\ref{sec:cmftbl_extension}. Section~\ref{sec:usage} shows the usage of
-%  the symbols in formulas. Section~\ref{sec:standalone_symbols} closes the
+%  LTL} and \emph{Past LTL} are introducted in Sect.~\ref{sec:future_ltl} and
+%  Sect.~\ref{sec:past_ltl}. The additional intervals from \emph{MTL} are
+%  described in Sect.~\ref{sec:mtl_extension}. The operators introduced
+%  in \emph{CMFTBL} are described in Sect.~\ref{sec:cmftbl_extension}.
+%  Section~\ref{sec:usage} shows the usage of the symbols in formulas.
+%  Section~\ref{sec:standalone_symbols} closes the
 %  command definitions with the standalone symbols for usage in text.
+%  Finally, Sect.~\ref{sec:operator_scaling} demonstrates the automatic scaling
+%  of the operators.
 %
 % \subsection{Dependencies}
 %   The package loads the following dependencies:
@@ -137,7 +140,7 @@
 % \subsection{Past LTL symbols}
 % \label{sec:past_ltl}
 %  \emph{Past LTL} defines operators analogous to \emph{Future LTL} to argue
-%  about the past. The symbols are identical, but are filled solid black.
+%  about the past. The symbols are identical but are filled solid black.
 %  \begin{function}{ ,
 %   \conce,
 %   \chistorically,
@@ -195,19 +198,31 @@
 %
 %  \noindent The semantics of the intervals are commonly defined as follows:
 %  The trace is only evaluated in the given interval. An empty interval is
-%  considered to be $[0, \infty)$ fur future and $(\infty, 0])$ for past
+%  considered to be $[0, \infty)$ for future and $(\infty, 0]$ for past
 %  operators. The first component of the interval always indicates the earlier
 %  state for both future and past operators.
 %
 % \subsection{MFOTL extension}
 % \label{sec:mfotl_extension}
-%  MFOTL introduces the first-order quantifiers $\forall$ and $\exists$. This
-%  package does not provide additional symbols, as the standard ones already
-%  contained in \LaTeX~may be used.
+%  \emph{MFOTL} introduces the first-order quantifiers $\exists$ and $\forall$.
+%  This package does not provide additional symbols, as the built-in ones
+%  already contained in \LaTeX~may be used.
 %
+%  \begin{function}{
+%   \exists,
+%   \forall}
+%   \begin{syntax}
+%    \begin{tabular}{lc}
+%     \cs{exists} & $\exists$\\
+%     \cs{forall} & $\forall$\\
+%    \end{tabular}
+%   \end{syntax}
+%  \end{function}
+%
+% \clearpage
 % \subsection{CMFTBL extension}
 % \label{sec:cmftbl_extension}
-%  \emph{MFOTL} gets extended by the operators \emph{minPrevalence},
+%  \emph{CMFTBL} extends \emph{MFOTL} by the operators \emph{minPrevalence},
 %  \emph{maxPrevalence}, their past forms, and the \emph{bind} operator.
 %
 %  \begin{function}{
@@ -232,7 +247,7 @@
 %   \end{syntax}
 %  \end{function}
 %
-%  \noindent The semantics of the operators is defined as follows. Let $p$ be a
+%  \noindent The semantics of the operators are defined as follows. Let $p$ be a
 %  fraction of states in the interval $[0,1]$:
 %  \begin{itemize}
 %   \item $\cminprevalence{p}[I] \phi$ expresses that $\phi$ must hold in at
@@ -243,9 +258,8 @@
 %   most fraction $p$ of the future states in the interval $I$.
 %   \item $\cpastmaxprevalence{p}[I] \phi$ expresses that $\phi$ must have held
 %   in at most fraction $p$ of the past states in the interval $I$.
-%   \item $\cbind{v.id}{i}$ saves the valuation $v.id$ of object $v$ to the
-%   variable $i$ for later use in a nested formula, where $v$ already has a new
-%   value.
+%   \item $\cbind{v.id}{i}$ saves the valuation $v.id$ to the variable $i$ for
+%   later use in a nested formula, where $v$ already has a new value.
 %  \end{itemize}
 %
 %  \emph{minPrevalence} and \emph{maxPrevalence} take the desired precentage as
@@ -254,9 +268,9 @@
 %  interval but two mandatory arguments: the value to bind and the target
 %  variable.
 %
-% \section{Usage in fomulas}
+% \section{Usage in formulas}
 % \label{sec:usage}
-%  The symbols may be directly used in math mode to create composite formulas.
+%  The commands may be directly used in math mode to create composite formulas.
 %  For the unary formulas, the term $\phi$ should directly follow the symbol:
 %  \begin{syntax}
 %   \begin{tabular}{ll}
@@ -266,7 +280,7 @@
 %  \end{syntax}
 %
 %  \noindent The binary symbols \emph{until} and \emph{since} should be used
-%  with the two formulas $\phi$ and $\psi$ directly before and after the symbol:
+%  with two formulas $\phi$ and $\psi$ directly before and after the symbol:
 %  \begin{syntax}
 %   \begin{tabular}{ll}
 %    \cs{phi}\cs{cuntil}\cs{psi} & $\phi \cuntil \psi$\\
@@ -325,7 +339,6 @@
 % \end{syntax}
 % \end{function}
 %
-% \clearpage
 % \section{Operator scaling}
 % \label{sec:operator_scaling}
 % The operators scale automatically with the current text size:\\[\baselineskip]
