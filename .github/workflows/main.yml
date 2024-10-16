@@ -30,7 +30,7 @@ jobs:
       - name: Build PDF from DTX
         run: | 
           latexmk -pdf cmftbl.dtx
-          mv cmftbl.odf cmftbl-doc.pdf
+          mv cmftbl.pdf cmftbl-doc.pdf
 
       - name: Create ZIP archive for CTAN
         run: |
