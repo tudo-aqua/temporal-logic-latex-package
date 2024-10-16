@@ -3,16 +3,21 @@
 ## Overview
 
 The package defines functions for rendering the temporal operators defined in
-the Counting Metric First Order Temporal Logic. The package defines various
-functions with variants in order to include or omit optional parameters to
-the operators like the optional interval. All operators are sized to the same
-width in order for them to align properly when printed one below the other.
+the *Linear Temporal Logic*, *Metric Temporal Logic*, *Metric First-Order 
+Temporal Logic*, and *Counting Metric First Order Temporal Logic*. The package 
+defines various functions with variants in order to include or omit optional 
+parameters to the operators like the optional interval. All operators are sized 
+to the same width in order for them to align properly when printed one below the other.
 
 ## Build the package
-1. Generate `.sty` file from `.ins` file:  
-	Execute the following command: `latex cmftbl.ins`
-2. Generate documentation:  
-	Execute the following command: `latexmk -pdf cmftbl.dtx`
+
+If you want to generate the necessary `.sty` file and the documentation for this
+package you can do this with the following steps:  
+
+1. Generate `.sty` file from `.ins` file with the command:  
+		`latex cmftbl.ins`
+2. Generate documentation with the command:  
+		`latexmk -pdf cmftbl.dtx`
 
 ## Copyright and License
 
