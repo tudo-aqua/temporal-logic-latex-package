@@ -7,12 +7,12 @@ message: Symbols for Temporal Logics
 type: software
 authors:
   - orcid: 'https://orcid.org/0000-0002-7866-7927'
-    given-names: Schmid
-    family-names: Dominik
+    given-names: Dominik
+    family-names: Schmid
     email: dominik.schmid@tu-dortmund.de
     affiliation: TU Dortmund University
-  - given-names: Schallau
-    family-names: Till
+  - given-names: Till
+    family-names: Schallau
     email: till.schallau@tu-dortmund.de
     affiliation: TU Dortmund University
     orcid: 'https://orcid.org/0000-0002-1769-3486'
