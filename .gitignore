@@ -10,7 +10,6 @@
 *.fot
 *.cb
 *.cb2
-.*.lb
 
 ## Intermediate documents:
 *.dvi
@@ -301,6 +300,6 @@ TSWLatexianTemp*
 #*Notes.bib
 
 # exclude generated files
-cmftbl.hd
-cmftbl.pdf
-cmftbl.sty
+temporal-logic.hd
+temporal-logic.pdf
+temporal-logic.sty
