@@ -3,8 +3,8 @@
 ## Overview
 
 The package defines functions for rendering the temporal operators defined in
-the **Linear Temporal Logic** (_LTL_), **Metric Temporal Logic** (_MTL_), **Metric First-Order 
-Temporal Logic** (_MFOTL_), and **Counting Metric First Order Temporal Logic** (_CMFTBL_). The package 
+the **Linear Temporal Logic** (_LTL_), **Metric Temporal Logic** (_MTL_), **Metric First-order 
+Temporal Logic** (_MFOTL_), and **Counting Metric First-order Temporal Binding Logic** (_CMFTBL_). The package 
 defines various functions with variants in order to include or omit optional 
 parameters to the operators like the optional interval.
 
