@@ -25,25 +25,25 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run LaTeX INS file
-        run: latex cmftbl.ins
+        run: latex temporal-logic.ins
       
       - name: Build PDF from DTX
         run: | 
-          latexmk -pdf cmftbl.dtx
-          mv cmftbl.pdf cmftbl-doc.pdf
+          latexmk -pdf temporal-logic.dtx
+          mv temporal-logic.pdf temporal-logic-doc.pdf
 
       - name: Create ZIP archive for CTAN
         run: |
           mkdir ctan-upload
-          cp cmftbl.dtx ctan-upload/
-          cp cmftbl.ins ctan-upload/
-          cp cmftbl-doc.pdf ctan-upload/
+          cp temporal-logic.dtx ctan-upload/
+          cp temporal-logic.ins ctan-upload/
+          cp temporal-logic-doc.pdf ctan-upload/
           cp README.md ctan-upload/
           cd ctan-upload
-          zip ../cmftbl.zip *
+          zip ../temporal-logic.zip *
 
       - name: Upload ZIP file
         uses: actions/upload-artifact@v4
         with:
           name: package
-          path: cmftbl.zip
+          path: temporal-logic.zip
