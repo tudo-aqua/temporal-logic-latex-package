@@ -34,13 +34,12 @@ jobs:
 
       - name: Create ZIP archive for CTAN
         run: |
-          mkdir ctan-upload
-          cp temporal-logic.dtx ctan-upload/
-          cp temporal-logic.ins ctan-upload/
-          cp temporal-logic-doc.pdf ctan-upload/
-          cp README.md ctan-upload/
-          cd ctan-upload
-          zip ../temporal-logic.zip *
+          mkdir temporal-logic
+          cp temporal-logic.dtx temporal-logic/
+          cp temporal-logic.ins temporal-logic/
+          cp temporal-logic-doc.pdf temporal-logic/
+          cp README.md temporal-logic/
+          zip -r temporal-logic.zip temporal-logic
 
       - name: Upload ZIP file
         uses: actions/upload-artifact@v4
