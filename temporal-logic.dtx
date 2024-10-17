@@ -5,34 +5,34 @@
 % Copyright (C) 2024 Dominik Schmid and Till Schallau
 %
 % This work may be distributed and/or modified under the
-% conditions of the LaTeX Project Public License, either version 1.3
+% conditions of the LaTeX Project Public License, either version 1.3c
 % of this license or (at your option) any later version.
 % The latest version of this license is in
 % http://www.latex-project.org/lppl.txt
-% and version 1.3 or later is part of all distributions of LaTeX
+% and version 1.3c or later is part of all distributions of LaTeX
 % version 2005/12/01 or later.
 %
 % This work has the LPPL maintenance status "maintained".
 %
-% The Current Maintainer of this work is Dominik Schmid
+% The current maintainer of this work is Dominik Schmid
 % <dominik.schmid@tu-dortmund.de>.
 %
-% This work consists of the files cmftbl.dtx and cmftbl.ins
-% and the derived file cmftbl.sty.
+% This work consists of the files temporal-logic.dtx and temporal-logic.ins
+% and the derived file temporal-logic.sty.
 %
 % \fi
 %
 % \iffalse
 %<*driver>
 \documentclass{l3doc}
-\usepackage{cmftbl}
+\usepackage{temporal-logic}
 \begin{document}
   \DocInput{\jobname.dtx}
 \end{document}
 %</driver>
 % \fi
 %
-% \title{CMFTBL}
+% \title{temporal-logic}
 % \author{Dominik Schmid and Till Schallau}
 % \date{Version 1.0}
 %
@@ -41,16 +41,26 @@
 % \begin{documentation}
 %
 % \begin{abstract}
-%  The \emph{cmftbl} package defines functions for rendering the temporal
-%  operators defined in the \emph{Counting Metric First Order Temporal
-%  Logic}\footnote{Schallau, T., Naujokat, S., Kullmann, F., Howar, F. (2024).
-%  Tree-Based Scenario Classification. In: NASA Formal Methods. NFM 2024.
-%  Lecture Notes in Computer Science, vol 14627. Springer, Cham.
-%  https://doi.org/10.1007/978-3-031-60698-4\_15}. The package defines various
-%  functions with variants in order to include or omit optional parameters of
-%  the operators like the optional interval. All operators are sized to the
-%  same width in order for them to align properly when printed one below the
-%  other.
+%  The \emph{temporal-logic} package defines functions for rendering temporal
+%  operators defined in \emph{Linear Temporal Logic} (LTL)\footnote{Pnueli, A.
+%  (1977). The temporal logic of programs. In: 18th Annual Symposium on
+%  Foundations of Computer Science (SFCS 1977). IEEE.
+%  \url{https://doi.org/10.1109/SFCS.1977.32}.}, \emph{Metric
+%  Temporal Logic} (MTL) \footnote{Alur, R., Henzinger, T. A. (1993). Real-time
+%  logics: Complexity and expressiveness. In: Proceedings of the Fifth Annual
+%  Symposium on Logic in Computer Science (LICS 1990). Elsevier.
+%  \url{https://doi.org/10.1006/inco.1993.1025}.}, \emph{Metric
+%  First-order Temporal Logic} (MFOTL) \footnote{Basin, David, Klaedtke, Felix,
+%  Müller, Samuel, and Zălinescu, Eugen. (2015). Monitoring Metric First-Order
+%  Temporal Properties. In: Journal of the ACM (J. ACM). Association for
+%  Computing Machinery. \url{https://doi.org/10.1145/2699444}.}, and the
+%  \emph{Counting Metric First Order Temporal
+%  Logic} (CMFTBL)\footnote{Schallau, T., Naujokat, S., Kullmann, F., Howar, F.
+%  (2024). Tree-Based Scenario Classification. In: NASA Formal Methods (NFM
+%  2024). Lecture Notes in Computer Science, vol 14627. Springer, Cham.
+%  \url{https://doi.org/10.1007/978-3-031-60698-4\_15}.}. The package defines
+%  various functions with variants in order to include or omit optional
+%  parameters of the operators like the optional interval.
 % \end{abstract}
 %
 % \clearpage
@@ -61,15 +71,15 @@
 % \subsection{Counting Metric First Order Temporal Logic}
 %  \emph{Counting Metric First Order Temporal Logic} (CMFTBL) argues about
 %  finite traces of states. It is an extension of \emph{Metric First Order
-%  Temporal Logic} (MFOTL), which itself is based on \emph{Metric Time
-%  Logic} (MTL) and ultimately on \emph{Linear Time Logic} (LTL). All these
+%  Temporal Logic} (MFOTL), which itself is based on \emph{Metric Temporal
+%  Logic} (MTL) and ultimately on \emph{Linear Temporal Logic} (LTL). All these
 %  logics extend the base with further operators and features.
 %
 % \subsection{Basic usage}
-%  This package defines the symbols used in CMFTBL as \emph{MathOperators}.
-%  Therefore, the symbols, as well as the commands, have to be used in math
-%  mode. To use normal text in the parameters \cs{mathrm} may be used to
-%  switch back to text mode.
+%  This package defines the symbols used in Temporal logics as
+%  \emph{MathOperators}. Therefore, the symbols, as well as the commands, have
+%  to be used in math mode. To use normal text in the parameters \cs{mathrm}
+%  or \cs{text} may be used to switch back to text mode.
 %
 %  The symbols come in two variants. A standalone version for mentioning logic
 %  symbols in text without additional formula spacing is described in
@@ -80,7 +90,7 @@
 %  additional spaces and explicitly enforce the correct usage of superscript
 %  and subscript via mandatory parameters. The naming scheme of the operators
 %  is chosen such that each command reflects the name of the temporal operator
-%  prefixed with a ``c'' for \textit{CMFTBL}. Standalone symbols, as described
+%  prefixed with a ``c'' for \textit{\underline{C}MFTBL}. Standalone symbols, as described
 %  in Sect.~\ref{sec:standalone_symbols}, are prefixed with ``csymb''. Those
 %  prefixes are necessary to prevent name clashes with built-in \LaTeX commands.
 %
@@ -89,7 +99,8 @@
 %  LTL} and \emph{Past LTL} are introducted in Sect.~\ref{sec:future_ltl} and
 %  Sect.~\ref{sec:past_ltl}. The additional intervals from \emph{MTL} are
 %  described in Sect.~\ref{sec:mtl_extension}. The operators introduced
-%  in \emph{CMFTBL} are described in Sect.~\ref{sec:cmftbl_extension}.
+%  in \emph{MFOTL} and \emph{CMFTBL} are described in
+%  Sect.~\ref{sec:mfotl_extension} and Sect.~\ref{sec:cmftbl_extension}.
 %  Section~\ref{sec:usage} shows the usage of the symbols in formulas.
 %  Section~\ref{sec:standalone_symbols} closes the
 %  command definitions with the standalone symbols for usage in text.
@@ -364,21 +375,22 @@
 %   Copyright (C) 2024\\
 %   Dominik Schmid and Till Schallau\\[\baselineskip]
 %
-%   This work may be distributed and/or modified under the conditions of the\\ %   \LaTeX~Project Public License, either version 1.3 of this license\\
+%   This work may be distributed and/or modified under the conditions of the\\ %   \LaTeX~Project Public License, either version 1.3c of this license\\
 %   or (at your option) any later version.\\[\baselineskip]
 %
 %   The latest version of this license is in
-%   http://www.latex-project.org/lppl.txt\\
-%   and version 1.3 or later is part of all distributions of
+%   \url{http://www.latex-project.org/lppl.txt}\\
+%   and version 1.3c or later is part of all distributions of
 %   \LaTeX~version 2005/12/01 or later.\\[\baselineskip]
 %
 %   This work has the LPPL maintenance status ''maintained''.\\[\baselineskip]
 %
-%   The Current Maintainer of this work is\\
-%   Dominik Schmid <dominik.schmid@tu-dortmund.de>.\\[\baselineskip]
+%   The current maintainer of this work is\\
+%   Dominik Schmid <\href{mailto:dominik.schmid@tu-dortmund.de}
+%   {dominik.schmid@tu-dortmund.de>}.\\[\baselineskip]
 %
-%   This work consists of the files cmftbl.dtx and cmftbl.ins\\
-%   and the derived file cmftbl.sty.
+%   This work consists of the files temporal-logic.dtx, temporal-logic.ins,\\
+%   and the derived file temporal-logic.sty.
 % \end{center}
 % \section{Sourcecode}
 % \label{sec:sourcecode}
@@ -393,8 +405,8 @@
 \RequirePackage{xparse}
 \RequirePackage{tikz}
 
-\ProvidesExplPackage {cmftbl} { 2024-06-05 } { v1.0 }{
-  Symbols for Counting Metric First Order Temporal Logic
+\ProvidesExplPackage {temporal-logic} { 2024-10-17 } { v1.0 }{
+  Symbols for Temporal Logics
 }
 
 \cs_new:Nn \__@@_op_sup_sub:Nnn {
