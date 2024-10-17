@@ -1,0 +1,33 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: temporal-logic
+message: Symbols for Temporal Logics
+type: software
+authors:
+  - orcid: 'https://orcid.org/0000-0002-7866-7927'
+    given-names: Schmid
+    family-names: Dominik
+    email: dominik.schmid@tu-dortmund.de
+    affiliation: TU Dortmund University
+  - given-names: Schallau
+    family-names: Till
+    email: till.schallau@tu-dortmund.de
+    affiliation: TU Dortmund University
+    orcid: 'https://orcid.org/0000-0002-1769-3486'
+identifiers:
+  - type: url
+    value: 'https://www.ctan.org/pkg/temporal-logic'
+    description: CTAN
+repository-code: 'https://github.com/tudo-aqua/temporal-logic-latex-package'
+abstract: >-
+  This package defines functions for rendering temporal
+  operators defined in Linear Temporal Logic (LTL), Metric
+  Temporal Logic (MTL), Metric First-order Temporal Logic
+  (MFOTL), and the Counting Metric First-order Temporal
+  Binding Logic (CMFTBL). The package defines various
+  functions with variants in order to include or omit
+  optional parameters of the operators like the optional
+  interval.
+license: LPPL-1.3c
