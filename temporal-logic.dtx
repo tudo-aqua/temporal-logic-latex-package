@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 %
-% File: cmftbl.dtx
+% File: temporal-logic.dtx
 %
 % Copyright (C) 2024 Dominik Schmid and Till Schallau
 %
@@ -90,9 +90,9 @@
 %  additional spaces and explicitly enforce the correct usage of superscript
 %  and subscript via mandatory parameters. The naming scheme of the operators
 %  is chosen such that each command reflects the name of the temporal operator
-%  prefixed with a ``c'' for \textit{\underline{C}MFTBL}. Standalone symbols, as described
-%  in Sect.~\ref{sec:standalone_symbols}, are prefixed with ``csymb''. Those
-%  prefixes are necessary to prevent name clashes with built-in \LaTeX commands.
+%  prefixed with a ``tl'' for \textit{temporal logic}. Standalone symbols, as
+%  described in Sect.~\ref{sec:standalone_symbols}, are prefixed with ``tlsymb''.
+%  Those prefixes are necessary to prevent name clashes with built-in \LaTeX commands.
 %
 % \subsection{Manual structure}
 %  This manual is structured as follows. First, the symbols for \emph{Future
@@ -123,28 +123,28 @@
 %   \emph{Future LTL}, or simply \emph{LTL}, defines operators to argue about
 %   the future. This includes the following operators.
 % \begin{function}{
-%   \ceventually,
-%   \cglobally,
-%   \cnext,
-%   \cuntil}
+%   \tleventually,
+%   \tltlglobally,
+%   \tlnext,
+%   \tluntil}
 %   \begin{syntax}
 %   \begin{tabular}{lc}
-%     \cs{ceventually} & $\ceventually$\\
-%     \cs{cglobally}   & $\cglobally$\\
-%     \cs{cnext}       & $\cnext$\\
-%     \cs{cuntil}      & $\cuntil$\\
+%     \cs{tleventually} & $\tleventually$\\
+%     \cs{tlglobally}   & $\tltlglobally$\\
+%     \cs{tlnext}       & $\tlnext$\\
+%     \cs{tluntil}      & $\tluntil$\\
 % \end{tabular}
 % \end{syntax}
 % \end{function}
 %
 %  \noindent The semantics of the operators are commonly defined as follows:
 % \begin{itemize}
-%   \item $\ceventually \phi$ expresses that $\phi$ must hold at least once in
+%   \item $\tleventually \varphi$ expresses that $\varphi$ must hold at least once in
 %   the future.
-%  \item $\cglobally \phi$ expresses that $\phi$ must hold from now for the
+%  \item $\tltlglobally \varphi$ expresses that $\varphi$ must hold from now for the
 %   entire trace.
-%  \item $\cnext \phi$ expresses that $\phi$ must hold at the next state.
-%  \item $\phi \cuntil \psi$ expresses that $\phi$ must hold until $\psi$
+%  \item $\tlnext \varphi$ expresses that $\varphi$ must hold at the next state.
+%  \item $\varphi \tluntil \psi$ expresses that $\varphi$ must hold until $\psi$
 %   holds.
 % \end{itemize}
 %
@@ -153,29 +153,29 @@
 %  \emph{Past LTL} defines operators analogous to \emph{Future LTL} to argue
 %  about the past. The symbols are identical but are filled solid black.
 %  \begin{function}{ ,
-%   \conce,
-%   \chistorically,
-%   \cprevious,
-%   \csince}
+%   \tlonce,
+%   \tlhistorically,
+%   \tlprevious,
+%   \tlsince}
 %   \begin{syntax}
 %   \begin{tabular}{lc}
-%     \cs{conce}         & $\conce$\\
-%     \cs{chistorically} & $\chistorically$\\
-%     \cs{cprevious}     & $\cprevious$\\
-%     \cs{csince}        & $\csince$\\
+%     \cs{tlonce}         & $\tlonce$\\
+%     \cs{tlhistorically} & $\tlhistorically$\\
+%     \cs{tlprevious}     & $\tlprevious$\\
+%     \cs{tlsince}        & $\tlsince$\\
 %   \end{tabular}
 %   \end{syntax}
 %  \end{function}
 %
 %  \noindent The semantics of the operators are commonly defined as follows:
 %  \begin{itemize}
-%   \item $\conce \phi$ expresses that $\phi$ must have held at least once
+%   \item $\tlonce \varphi$ expresses that $\varphi$ must have held at least once
 %   in the past.
-%   \item $\chistorically \phi$ expresses that $\phi$ must have held until
+%   \item $\tlhistorically \varphi$ expresses that $\varphi$ must have held until
 %   now for the entire past trace.
-%   \item $\cprevious \phi$ expresses that $\phi$ must have held at the previous
+%   \item $\tlprevious \varphi$ expresses that $\varphi$ must have held at the previous
 %   state.
-%   \item $\phi \csince \psi$ expresses that $\phi$ must have held since $\psi$
+%   \item $\varphi \tlsince \psi$ expresses that $\varphi$ must have held since $\psi$
 %   has held.
 %  \end{itemize}
 %
@@ -185,24 +185,24 @@
 %  The \emph{Future LTL} and \emph{Past LTL} operators may be extended with an
 %  optional interval to form \emph{MTL}.
 %  \begin{function}{
-%   \ceventually,
-%   \conce,
-%   \cglobally,
-%   \chistorically,
-%   \cnext,
-%   \cprevious,
-%   \cuntil,
-%   \csince}
+%   \tleventually,
+%   \tlonce,
+%   \tltlglobally,
+%   \tlhistorically,
+%   \tlnext,
+%   \tlprevious,
+%   \tluntil,
+%   \tlsince}
 %   \begin{syntax}
 %    \begin{tabular}{lc}
-%     \cs{ceventually}\oarg{Interval} & $\ceventually[[0,1]]$\\
-%     \cs{conce}\oarg{Interval} & $\conce[[0,1]]$\\
-%     \cs{cglobally}\oarg{Interval} & $\cglobally[[0,1]]$\\
-%     \cs{chistorically}\oarg{Interval} & $\chistorically[[0,1]]$\\
-%     \cs{cnext}\oarg{Interval} & $\cnext[[0,1]]$\\
-%     \cs{cprevious}\oarg{Interval} & $\cprevious[[0,1]]$\\
-%     \cs{cuntil}\oarg{Interval} & $\cuntil[[0,1]]$\\
-%     \cs{csince}\oarg{Interval} & $\csince[[0,1]]$\\
+%     \cs{tleventually}\oarg{Interval} & $\tleventually[[0,1]]$\\
+%     \cs{tlonce}\oarg{Interval} & $\tlonce[[0,1]]$\\
+%     \cs{tlglobally}\oarg{Interval} & $\tltlglobally[[0,1]]$\\
+%     \cs{tlhistorically}\oarg{Interval} & $\tlhistorically[[0,1]]$\\
+%     \cs{tlnext}\oarg{Interval} & $\tlnext[[0,1]]$\\
+%     \cs{tlprevious}\oarg{Interval} & $\tlprevious[[0,1]]$\\
+%     \cs{tluntil}\oarg{Interval} & $\tluntil[[0,1]]$\\
+%     \cs{tlsince}\oarg{Interval} & $\tlsince[[0,1]]$\\
 %   \end{tabular}
 %  \end{syntax}
 % \end{function}
@@ -237,23 +237,23 @@
 %  \emph{maxPrevalence}, their past forms, and the \emph{bind} operator.
 %
 %  \begin{function}{
-%   \cminprevalence,
-%   \cpastminprevalence,
-%   \cmaxprevalence,
-%   \cpastmaxprevalence,
-%   \cbind}
+%   \tlminprevalence,
+%   \tlpastminprevalence,
+%   \tlmaxprevalence,
+%   \tlpastmaxprevalence,
+%   \tlbind}
 %   \begin{syntax}
 %    \begin{tabular}{lc}
-%     \cs{cminprevalence}\marg{Percentage}\oarg{Interval} &
-%     $\cminprevalence{0.8}[[0,1]]$\\
-%     \cs{cpastminprevalence}\marg{Percentage}\oarg{Interval} &
-%     $\cpastminprevalence{0.8}[[0,1]]$\\
-%     \cs{cmaxprevalence}\marg{Percentage}\oarg{Interval} &
-%     $\cmaxprevalence{0.8}[[0,1]]$\\
-%     \cs{cpastmaxprevalence}\marg{Percentage}\oarg{Interval} &
-%     $\cpastmaxprevalence{0.8}[[0,1]]$\\
-%     \cs{cbind}\marg{Valuation}\marg{Variable} &
-%     $\cbind{v.id}{i}$\\
+%     \cs{tlminprevalence}\marg{Percentage}\oarg{Interval} &
+%     $\tlminprevalence{0.8}[[0,1]]$\\
+%     \cs{tlpastminprevalence}\marg{Percentage}\oarg{Interval} &
+%     $\tlpastminprevalence{0.8}[[0,1]]$\\
+%     \cs{tlmaxprevalence}\marg{Percentage}\oarg{Interval} &
+%     $\tlmaxprevalence{0.8}[[0,1]]$\\
+%     \cs{tlpastmaxprevalence}\marg{Percentage}\oarg{Interval} &
+%     $\tlpastmaxprevalence{0.8}[[0,1]]$\\
+%     \cs{tlbind}\marg{Valuation}\marg{Variable} &
+%     $\tlbind{v.id}{i}$\\
 %    \end{tabular}
 %   \end{syntax}
 %  \end{function}
@@ -261,15 +261,15 @@
 %  \noindent The semantics of the operators are defined as follows. Let $p$ be a
 %  fraction of states in the interval $[0,1]$:
 %  \begin{itemize}
-%   \item $\cminprevalence{p}[I] \phi$ expresses that $\phi$ must hold in at
+%   \item $\tlminprevalence{p}[I] \varphi$ expresses that $\varphi$ must hold in at
 %   least fraction $p$ of the future states in the interval $I$.
-%   \item $\cpastminprevalence{p}[I] \phi$ expresses that $\phi$ must have held
+%   \item $\tlpastminprevalence{p}[I] \varphi$ expresses that $\varphi$ must have held
 %   in at least fraction $p$ of the past states in the interval $I$.
-%   \item $\cmaxprevalence{p}[I] \phi$ expresses that $\phi$ must hold in at
+%   \item $\tlmaxprevalence{p}[I] \varphi$ expresses that $\varphi$ must hold in at
 %   most fraction $p$ of the future states in the interval $I$.
-%   \item $\cpastmaxprevalence{p}[I] \phi$ expresses that $\phi$ must have held
+%   \item $\tlpastmaxprevalence{p}[I] \varphi$ expresses that $\varphi$ must have held
 %   in at most fraction $p$ of the past states in the interval $I$.
-%   \item $\cbind{v.id}{i}$ saves the valuation $v.id$ to the variable $i$ for
+%   \item $\tlbind{v.id}{i}$ saves the valuation $v.id$ to the variable $i$ for
 %   later use in a nested formula, where $v$ already has a new value.
 %  \end{itemize}
 %
@@ -282,33 +282,33 @@
 % \section{Usage in formulas}
 % \label{sec:usage}
 %  The commands may be directly used in math mode to create composite formulas.
-%  For the unary formulas, the term $\phi$ should directly follow the symbol:
+%  For the unary formulas, the term $\varphi$ should directly follow the symbol:
 %  \begin{syntax}
 %   \begin{tabular}{ll}
-%    \cs{ceventually}\cs{phi} & $\ceventually \phi$\\
-%    \cs{cglobally}[[0,1]]\cs{phi} & $\cglobally[[0,1]] \phi$
+%    \cs{tleventually}\cs{varphi} & $\tleventually \varphi$\\
+%    \cs{tlglobally}[[0,1]]\cs{varphi} & $\tltlglobally[[0,1]] \varphi$
 %   \end{tabular}
 %  \end{syntax}
 %
 %  \noindent The binary symbols \emph{until} and \emph{since} should be used
-%  with two formulas $\phi$ and $\psi$ directly before and after the symbol:
+%  with two formulas $\varphi$ and $\psi$ directly before and after the symbol:
 %  \begin{syntax}
 %   \begin{tabular}{ll}
-%    \cs{phi}\cs{cuntil}\cs{psi} & $\phi \cuntil \psi$\\
-%    \cs{phi}\cs{csince}[[0,1]]\cs{psi} & $\phi \csince[[0,1]] \psi$
+%    \cs{varphi}\cs{tluntil}\cs{psi} & $\varphi \tluntil \psi$\\
+%    \cs{varphi}\cs{tlsince}[[0,1]]\cs{psi} & $\varphi \tlsince[[0,1]] \psi$
 %   \end{tabular}
 %  \end{syntax}
 %
 % \noindent
-% The new \emph{CMFTBL} operators my be used as the unary ones:
+% The \emph{CMFTBL} operators may be used as the unary ones:
 % \begin{syntax}
 % \begin{tabular}{ll}
-%   \cs{cminprevalence}\{0.8\}\cs{phi} &
-%   $\cminprevalence{0.8} \phi$\\
-%   \cs{cmaxprevalence}\{0.8\}[[0,1]]\cs{phi} &
-%   $\cmaxprevalence{0.8}[[0,1]] \phi$\\
-%   \cs{cbind}\{v.id\}\{i\}\cs{phi} &
-%   $\cbind{v.id}{i} \phi$
+%   \cs{tlminprevalence}\{0.8\}\cs{varphi} &
+%   $\tlminprevalence{0.8} \varphi$\\
+%   \cs{tlmaxprevalence}\{0.8\}[[0,1]]\cs{varphi} &
+%   $\tlmaxprevalence{0.8}[[0,1]] \varphi$\\
+%   \cs{tlbind}\{v.id\}\{i\}\cs{varphi} &
+%   $\tlbind{v.id}{i} \varphi$
 % \end{tabular}
 % \end{syntax}
 %
@@ -318,34 +318,34 @@
 % \emph{MathOperators} without additional spacing around for the usage in text.
 %
 % \begin{function}{
-%   \csymbeventually,
-%   \csymbonce,
-%   \csymbglobally,
-%   \csymbhistorically,
-%   \csymbnext,
-%   \csymbprevious,
-%   \csymbuntil,
-%   \csymbsince,
-%   \csymbminprevalence,
-%   \csymbpastminprevalence,
-%   \csymbmaxprevalence,
-%   \csymbpastmaxprevalence,
-%   \csymbbind}
+%   \tlsymbeventually,
+%   \tlsymbonce,
+%   \tlsymbtlglobally,
+%   \tlsymbhistorically,
+%   \tlsymbnext,
+%   \tlsymbprevious,
+%   \tlsymbuntil,
+%   \tlsymbsince,
+%   \tlsymbminprevalence,
+%   \tlsymbpastminprevalence,
+%   \tlsymbmaxprevalence,
+%   \tlsymbpastmaxprevalence,
+%   \tlsymbbind}
 %   \begin{syntax}
 %   \begin{tabular}{lc}
-%     \cs{csymbeventually} & $\csymbeventually$\\
-%     \cs{csymbonce} & $\csymbonce$\\
-%     \cs{csymbglobally} & $\csymbglobally$\\
-%     \cs{csymbhistorically} & $\csymbhistorically$\\
-%     \cs{csymbnext} & $\csymbnext$\\
-%     \cs{csymbprevious} & $\csymbprevious$\\
-%     \cs{csymbuntil} & $\csymbuntil$\\
-%     \cs{csymbsince} & $\csymbsince$\\
-%     \cs{csymbminprevalence} & $\csymbminprevalence$\\
-%     \cs{csymbpastminprevalence} & $\csymbpastminprevalence$\\
-%     \cs{csymbmaxprevalence} & $\csymbmaxprevalence$\\
-%     \cs{csymbpastmaxprevalence} & $\csymbpastmaxprevalence$\\
-%     \cs{csymbbind} & $\csymbbind$
+%     \cs{tlsymbeventually} & $\tlsymbeventually$\\
+%     \cs{tlsymbonce} & $\tlsymbonce$\\
+%     \cs{tlsymbtlglobally} & $\tlsymbtlglobally$\\
+%     \cs{tlsymbhistorically} & $\tlsymbhistorically$\\
+%     \cs{tlsymbnext} & $\tlsymbnext$\\
+%     \cs{tlsymbprevious} & $\tlsymbprevious$\\
+%     \cs{tlsymbuntil} & $\tlsymbuntil$\\
+%     \cs{tlsymbsince} & $\tlsymbsince$\\
+%     \cs{tlsymbminprevalence} & $\tlsymbminprevalence$\\
+%     \cs{tlsymbpastminprevalence} & $\tlsymbpastminprevalence$\\
+%     \cs{tlsymbmaxprevalence} & $\tlsymbmaxprevalence$\\
+%     \cs{tlsymbpastmaxprevalence} & $\tlsymbpastmaxprevalence$\\
+%     \cs{tlsymbbind} & $\tlsymbbind$
 % \end{tabular}
 % \end{syntax}
 % \end{function}
@@ -355,16 +355,16 @@
 % The operators scale automatically with the current text size:\\[\baselineskip]
 %
 % \begin{tabular}{ll}
-%   \Huge\cs{Huge} & \Huge$\ceventually[[0,1]] \phi$\\
-%   \huge\cs{huge} & \huge$\ceventually[[0,1]] \phi$\\
-%   \LARGE\cs{LARGE} & \LARGE$\ceventually[[0,1]] \phi$\\
-%   \Large\cs{Large} & \Large$\ceventually[[0,1]] \phi$\\
-%   \large\cs{large} & \large$\ceventually[[0,1]] \phi$\\
-%   \normalsize\cs{normalsize} & \normalsize$\ceventually[[0,1]] \phi$\\
-%   \small\cs{small} & \small$\ceventually[[0,1]] \phi$\\
-%   \footnotesize\cs{footnotesize} & \footnotesize$\ceventually[[0,1]] \phi$\\
-%   \scriptsize\cs{scriptsize} & \scriptsize$\ceventually[[0,1]] \phi$\\
-%   \tiny\cs{tiny} & \tiny$\ceventually[[0,1]] \phi$
+%   \Huge\cs{Huge} & \Huge$\tleventually[[0,1]] \varphi$\\
+%   \huge\cs{huge} & \huge$\tleventually[[0,1]] \varphi$\\
+%   \LARGE\cs{LARGE} & \LARGE$\tleventually[[0,1]] \varphi$\\
+%   \Large\cs{Large} & \Large$\tleventually[[0,1]] \varphi$\\
+%   \large\cs{large} & \large$\tleventually[[0,1]] \varphi$\\
+%   \normalsize\cs{normalsize} & \normalsize$\tleventually[[0,1]] \varphi$\\
+%   \small\cs{small} & \small$\tleventually[[0,1]] \varphi$\\
+%   \footnotesize\cs{footnotesize} & \footnotesize$\tleventually[[0,1]] \varphi$\\
+%   \scriptsize\cs{scriptsize} & \scriptsize$\tleventually[[0,1]] \varphi$\\
+%   \tiny\cs{tiny} & \tiny$\tleventually[[0,1]] \varphi$
 % \end{tabular}
 %
 % \normalsize
@@ -372,7 +372,7 @@
 %
 % \section{License}
 % \begin{center}
-%   Copyright (C) 2024\\
+%   Copyright (C) 2025\\
 %   Dominik Schmid and Till Schallau\\[\baselineskip]
 %
 %   This work may be distributed and/or modified under the conditions of the\\ %   \LaTeX~Project Public License, either version 1.3c of this license\\
@@ -398,7 +398,7 @@
 % \begin{implementation}
 %    \begin{macrocode}
 % <*package>
-% <@@=cmftbl>
+% <@@=temporal_logic>
 
 \RequirePackage{amsmath}
 \RequirePackage{expl3}
@@ -412,8 +412,8 @@
 \cs_new:Nn \__@@_op_sup_sub:Nnn {
       \ensuremath {
         #1
-        \tl_if_empty:nF { #2 } { \c_math_superscript_token { \,#2 } }
-        \tl_if_empty:nF { #3 } { \c_math_subscript_token { \,#3 } }
+        \tl_if_empty:nF { #2 } { \c_math_superscript_token { \,\mathit{#2} } }
+        \tl_if_empty:nF { #3 } { \c_math_subscript_token { \,\mathit{#3} } }
         \,
       }
 }
@@ -443,7 +443,7 @@
   }
 }
 
-\DeclareMathOperator { \csymbeventually } {
+\DeclareMathOperator { \tlsymbeventually } {
   \__@@_render_op:n {
      \draw
        (.5*\EX, 0) --
@@ -453,7 +453,7 @@
        cycle;
   }
 }
-\DeclareMathOperator { \csymbonce } {
+\DeclareMathOperator { \tlsymbonce } {
   \__@@_render_op:n {
     \draw[fill]
     (.5*\EX, 0) --
@@ -463,7 +463,7 @@
     cycle;
 }
 }
-\DeclareMathOperator { \csymbglobally } {
+\DeclareMathOperator { \tlsymbtlglobally } {
   \__@@_render_op:n {
     \draw
     (.15*\EX, .15*\EX)
@@ -471,7 +471,7 @@
     (.85*\EX, .85*\EX);
   }
 }
-\DeclareMathOperator { \csymbhistorically } {
+\DeclareMathOperator { \tlsymbhistorically } {
   \__@@_render_op:n {
     \draw[fill]
     (.15*\EX, .15*\EX)
@@ -479,7 +479,7 @@
     (.85*\EX, .85*\EX);
   }
 }
-\DeclareMathOperator { \csymbnext } {
+\DeclareMathOperator { \tlsymbnext } {
   \__@@_render_op:n {
     \draw
     (.5*\EX, .5*\EX)
@@ -487,7 +487,7 @@
     (.4*\EX);
   }
 }
-\DeclareMathOperator { \csymbprevious } {
+\DeclareMathOperator { \tlsymbprevious } {
   \__@@_render_op:n {
     \draw[fill]
     (.5*\EX, .5*\EX)
@@ -495,13 +495,13 @@
     (.4*\EX);
   }
 }
-\DeclareMathOperator { \csymbuntil } {
+\DeclareMathOperator { \tlsymbuntil } {
   \ensuremath\mathcal{U}
 }
-\DeclareMathOperator { \csymbsince } {
+\DeclareMathOperator { \tlsymbsince } {
   \ensuremath\mathcal{S}
 }
-\DeclareMathOperator { \csymbminprevalence } {
+\DeclareMathOperator { \tlsymbminprevalence } {
   \__@@_render_op:n {
     \draw
       (.1*\EX, .9*\EX) --
@@ -510,7 +510,7 @@
       cycle;
   }
 }
-\DeclareMathOperator { \csymbpastminprevalence } {
+\DeclareMathOperator { \tlsymbpastminprevalence } {
   \__@@_render_op:n {
     \draw[fill]
     (.1*\EX, .9*\EX) --
@@ -519,7 +519,7 @@
     cycle;
   }
 }
-\DeclareMathOperator { \csymbmaxprevalence } {
+\DeclareMathOperator { \tlsymbmaxprevalence } {
   \__@@_render_op:n {
     \draw
     (.1*\EX, .1*\EX) --
@@ -528,7 +528,7 @@
     cycle;
 }
   }
-\DeclareMathOperator { \csymbpastmaxprevalence } {
+\DeclareMathOperator { \tlsymbpastmaxprevalence } {
   \__@@_render_op:n {
     \draw[fill]
     (.1*\EX, .1*\EX) --
@@ -537,7 +537,7 @@
     cycle;
   }
 }
-\DeclareMathOperator { \csymbbind } {
+\DeclareMathOperator { \tlsymbbind } {
   \__@@_render_op:n {
     \draw (.5*\EX, \EX) -- (.5*\EX, 0);
     \draw
@@ -549,44 +549,44 @@
   }
 }
 
-\ProvideDocumentCommand { \ceventually } { O{} } {
-  \__@@_op_sub:cn { csymbeventually } { #1 }
+\ProvideDocumentCommand { \tleventually } { O{} } {
+  \__@@_op_sub:cn { tlsymbeventually } { #1 }
 }
-\ProvideDocumentCommand { \conce } { O{} } {
-  \__@@_op_sub:cn { csymbonce } { #1 }
+\ProvideDocumentCommand { \tlonce } { O{} } {
+  \__@@_op_sub:cn { tlsymbonce } { #1 }
 }
-\ProvideDocumentCommand { \cglobally } { O{} } {
-  \__@@_op_sub:cn { csymbglobally } { #1 }
+\ProvideDocumentCommand { \tltlglobally } { O{} } {
+  \__@@_op_sub:cn { tlsymbtlglobally } { #1 }
 }
-\ProvideDocumentCommand { \chistorically } { O{} } {
-  \__@@_op_sub:cn { csymbhistorically } { #1 }
+\ProvideDocumentCommand { \tlhistorically } { O{} } {
+  \__@@_op_sub:cn { tlsymbhistorically } { #1 }
 }
-\ProvideDocumentCommand { \cnext } { O{} } {
-  \__@@_op_sub:cn { csymbnext } { #1 }
+\ProvideDocumentCommand { \tlnext } { O{} } {
+  \__@@_op_sub:cn { tlsymbnext } { #1 }
 }
-\ProvideDocumentCommand { \cprevious } { O{} } {
-  \__@@_op_sub:cn { csymbprevious } { #1 }
+\ProvideDocumentCommand { \tlprevious } { O{} } {
+  \__@@_op_sub:cn { tlsymbprevious } { #1 }
 }
-\ProvideDocumentCommand { \cuntil } { O{} } {
-  \__@@_op_sub:Nn { \;\csymbuntil } { #1 }
+\ProvideDocumentCommand { \tluntil } { O{} } {
+  \__@@_op_sub:Nn { \;\tlsymbuntil } { #1 }
 }
-\ProvideDocumentCommand { \csince } { O{} } {
-  \__@@_op_sub:Nn { \;\csymbsince } { #1 }
+\ProvideDocumentCommand { \tlsince } { O{} } {
+  \__@@_op_sub:Nn { \;\tlsymbsince } { #1 }
 }
-\ProvideDocumentCommand { \cminprevalence } { m O{} } {
-  \__@@_op_sup_sub:cnn { csymbminprevalence } { #1 } { #2 }
+\ProvideDocumentCommand { \tlminprevalence } { m O{} } {
+  \__@@_op_sup_sub:cnn { tlsymbminprevalence } { #1 } { #2 }
 }
-\ProvideDocumentCommand { \cpastminprevalence } { m O{} } {
-  \__@@_op_sup_sub:cnn { csymbpastminprevalence } { #1 } { #2 }
+\ProvideDocumentCommand { \tlpastminprevalence } { m O{} } {
+  \__@@_op_sup_sub:cnn { tlsymbpastminprevalence } { #1 } { #2 }
 }
-\ProvideDocumentCommand { \cmaxprevalence } { m O{} } {
-  \__@@_op_sup_sub:cnn { csymbmaxprevalence } { #1 } { #2 }
+\ProvideDocumentCommand { \tlmaxprevalence } { m O{} } {
+  \__@@_op_sup_sub:cnn { tlsymbmaxprevalence } { #1 } { #2 }
 }
-\ProvideDocumentCommand { \cpastmaxprevalence } { m O{} } {
-  \__@@_op_sup_sub:cnn { csymbpastmaxprevalence } { #1 } { #2 }
+\ProvideDocumentCommand { \tlpastmaxprevalence } { m O{} } {
+  \__@@_op_sup_sub:cnn { tlsymbpastmaxprevalence } { #1 } { #2 }
 }
-\ProvideDocumentCommand { \cbind } { m m } {
-  \__@@_op_sup_sub:cnn { csymbbind } { #1 } { #2 }
+\ProvideDocumentCommand { \tlbind } { m m } {
+  \__@@_op_sup_sub:cnn { tlsymbbind } { #1 } { #2 }
 }
 % </package>
 %    \end{macrocode}
