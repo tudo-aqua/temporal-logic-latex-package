@@ -26,6 +26,7 @@
 %<*driver>
 \documentclass{l3doc}
 \usepackage{temporal-logic}
+\usepackage{tabularray}
 \begin{document}
   \DocInput{\jobname.dtx}
 \end{document}
@@ -68,20 +69,13 @@
 % \clearpage
 %
 % \section{Introduction}
-% \subsection{Counting Metric First-order Temporal Logic}
-%  \emph{Counting Metric First-order Temporal Logic} (CMFTBL) argues about
-%  finite traces of states. It is an extension of \emph{Metric First-order
-%  Temporal Logic} (MFOTL), which itself is based on \emph{Metric Temporal
-%  Logic} (MTL) and ultimately on \emph{Linear Temporal Logic} (LTL). All these
-%  logics extend the base with further operators and features.
-%
 % \subsection{Basic usage}
 %  This package defines the symbols used in Temporal logics as
 %  \emph{MathOperators}. Therefore, the symbols, as well as the commands, have
 %  to be used in math mode. To use normal text in the parameters \cs{mathrm}
-%  or \cs{text} may be used to switch back to text mode.
+%  or \cs{text} may be used.
 %
-%  The symbols come in two variants. A standalone version for mentioning logic
+%  The symbols come in two variants: A standalone version for mentioning logic
 %  symbols in text without additional formula spacing is described in
 %  Sect.~\ref{sec:standalone_symbols} and a formula version, also providing
 %  additional parameters, is described in Sect.~\ref{sec:future_ltl} --
@@ -120,89 +114,157 @@
 % \section{Symbol definitions}
 % \subsection{Future LTL symbols}
 % \label{sec:future_ltl}
-%   \emph{Future LTL}, or simply \emph{LTL}, defines operators to argue about
-%   the future. This includes the following operators.
+% \emph{Future LTL}, or simply \emph{LTL}, defines operators to argue about the future. This includes the following operators.
 % \begin{function}{
-%   \tleventually,
-%   \tltlglobally,
-%   \tlnext,
-%   \tluntil}
+%     \tlnext,
+%     \tlfinally,
+%     \tleventually,
+%     \tlglobally,
+%     \tluntil,
+%     \tlrelease,
+%     \tlweakuntil,
+%     \tlstrongrelease,
+%     \tlmightyrelease
+%   }
 %   \begin{syntax}
-%   \begin{tabular}{lc}
-%     \cs{tleventually} & $\tleventually$\\
-%     \cs{tlglobally}   & $\tltlglobally$\\
-%     \cs{tlnext}       & $\tlnext$\\
-%     \cs{tluntil}      & $\tluntil$\\
-% \end{tabular}
-% \end{syntax}
+%     \cs{tlnext} \cs{varphi}
+%     \cs{tlfinally} \cs{varphi}
+%     \cs{tleventually} \cs{varphi}
+%     \cs{tlglobally} \cs{varphi}
+%     \cs{varphi} \cs{tluntil} \cs{psi}
+%     \cs{psi} \cs{tlrelease} \cs{varphi}
+%     \cs{varphi} \cs{tlweakuntil} \cs{psi}
+%     \cs{psi} \cs{tlstrongrelease} \cs{varphi}
+%     \cs{psi} \cs{tlmightyrelease} \cs{varphi}
+%   \end{syntax}
 % \end{function}
 %
-%  \noindent The semantics of the operators are commonly defined as follows:
-% \begin{itemize}
-%   \item $\tleventually \varphi$ expresses that $\varphi$ must hold at least once in
-%   the future.
-%  \item $\tltlglobally \varphi$ expresses that $\varphi$ must hold from now for the
-%   entire trace.
-%  \item $\tlnext \varphi$ expresses that $\varphi$ must hold at the next state.
-%  \item $\varphi \tluntil \psi$ expresses that $\varphi$ must hold until $\psi$
-%   holds.
-% \end{itemize}
+% \noindent
+% The symbols get rendered according to the selected display mode (cf.~Sect.~\ref{sec:mode}). The symbols and the common semantics of the operators are listed below:
 %
+% \vspace{\baselineskip}
+% \noindent
+% \begin{tblr}{
+%     colspec={lcccX},
+%     width=\textwidth,
+%     rowsep={3pt}
+%   }
+%   \textbf{Command}  & \textbf{Bold} & \textbf{Textual} & \textbf{Symbolic} & \textbf{Semantics}\\
+%   \cs{tlnext}       & $\tlboldnext \varphi$ & $\tlletternext \varphi$ & $\tlsymbnext \varphi$ & 
+%   $\varphi$ must hold at the next state.\\
+%
+%   {\cs{tlfinally} \\ \cs{tleventually}}    & {$\tlboldfinally \varphi$} & {$\tlletterfinally \varphi$} & {$\tlsymbfinally \varphi$} &  
+%   $\varphi$ must hold at least once in the future.\\
+%
+%   \cs{tlglobally}   & $\tlboldglobally \varphi$ & $\tlletterglobally \varphi$ & $\tlsymbglobally \varphi$ & 
+%   $\varphi$ must hold from now for the entire trace.\\
+%
+%   \cs{tluntil}      & $\varphi \tlbolduntil \psi$ & $\varphi \tlletteruntil \psi$ & $\varphi \tlsymbuntil \psi$ & 
+%   $\varphi$ must hold at least until $\psi$ holds, which must hold at the current or a future position.\\
+%
+%   \cs{tlrelease} & $\psi \tlboldrelease \varphi$ & $\psi \tlletterrelease \varphi$ & $\psi \tlsymbrelease \varphi$ & 
+%   $\varphi$ must hold until and including the point where $\psi$ first becomes true. If $\psi$ never becomes true, $\varphi$ must remain true for the entire trace.\\
+%
+%   \cs{tlweakuntil} & $\varphi \tlboldweakuntil \psi$ & $\varphi \tlletterweakuntil \psi$ & $\varphi \tlsymbweakuntil \psi$ & 
+%   $\varphi$ must to hold at least until $\psi$ holds. If $\psi$ never becomes true, $\phi$ must remain true for the entire trace.\\
+%
+%   {\cs{tlstrongrelease} \\ \cs{tlmightyrelease}} & $\psi \tlboldstrongrelease \varphi$ & $\psi \tlletterstrongrelease \varphi$ & $\psi \tlsymbstrongrelease \varphi$ & 
+%    $\varphi$ must hold until and including the point where $\psi$ first becomes true, which must hold at the current or a future position.\\
+% \end{tblr}
+%
+% \clearpage
 % \subsection{Past LTL symbols}
 % \label{sec:past_ltl}
 %  \emph{Past LTL} defines operators analogous to \emph{Future LTL} to argue
 %  about the past. The symbols are identical but are filled solid black.
-%  \begin{function}{ ,
+%  \begin{function}{
+%   \tlyesterday,
+%   \tlprevious,
 %   \tlonce,
 %   \tlhistorically,
-%   \tlprevious,
-%   \tlsince}
+%   \tlsince,
+%   \tlbackto,
+%   \tlweaksince,
+%   \tltrigger
+%   }
 %   \begin{syntax}
-%   \begin{tabular}{lc}
-%     \cs{tlonce}         & $\tlonce$\\
-%     \cs{tlhistorically} & $\tlhistorically$\\
-%     \cs{tlprevious}     & $\tlprevious$\\
-%     \cs{tlsince}        & $\tlsince$\\
-%   \end{tabular}
+%     \cs{tlyesterday} \cs{varphi}
+%     \cs{tlprevious} \cs{varphi}
+%     \cs{tlonce} \cs{varphi}
+%     \cs{tlhistorically} \cs{varphi}
+%     \cs{varphi} \cs{tlsince} \cs{psi}
+%     \cs{psi} \cs{backto} \cs{varphi}
+%     \cs{varphi} \cs{tlweaksince} \cs{psi}
+%     \cs{psi} \cs{tltrigger} \cs{varphi}
 %   \end{syntax}
 %  \end{function}
 %
-%  \noindent The semantics of the operators are commonly defined as follows:
-%  \begin{itemize}
-%   \item $\tlonce \varphi$ expresses that $\varphi$ must have held at least once
-%   in the past.
-%   \item $\tlhistorically \varphi$ expresses that $\varphi$ must have held until
-%   now for the entire past trace.
-%   \item $\tlprevious \varphi$ expresses that $\varphi$ must have held at the previous
-%   state.
-%   \item $\varphi \tlsince \psi$ expresses that $\varphi$ must have held since $\psi$
-%   has held.
-%  \end{itemize}
+% \vspace{\baselineskip}
+% \noindent
+% \begin{tblr}{
+%     colspec={lcccX},
+%     width=\textwidth,
+%     rowsep={3pt}
+%   }
+%   \textbf{Command} & \textbf{Bold} & \textbf{Textual} & \textbf{Symbolic} & \textbf{Semantics}\\
+%   {\cs{tlyesterday} \\ \cs{tlprevious}} & $\tlboldyesterday \varphi$ & $\tlletteryesterday \varphi$ & $\tlsymbyesterday \varphi$ & $\varphi$ must have held at the previous state.\\
+%
+%   \cs{tlonce} & $\tlboldonce \varphi$ & $\tlletteronce \varphi$  & $\tlsymbonce \varphi$  & $\varphi$ must have held at least once in the past.\\
+%
+%   \cs{tlhistorically} & $\tlboldhistorically \varphi$ & $\tlletterhistorically \varphi$  & $\tlsymbhistorically \varphi$ & $\varphi$ must have held until now for the entire past trace\\
+%
+%   \cs{tlsince} & $\varphi \tlboldsince \psi$ & $\tllettersince \varphi$  & $\tllettersince \varphi$ & $\varphi$ must have held since $\psi$ has held, which must have held at the current or a past state.\\
+%
+%   \cs{tlbackto} & $\psi \tlboldbackto \varphi$ & $\tlletterbackto \varphi$  & $\tlsymbbackto \varphi$  & $\varphi$ must have held since and including the point where $\psi$ was true the last time. If $\psi$ never was true, $\varphi$ must have been true for the entire past trace.\\
+%
+%   \cs{tlweaksince} & $\varphi \tlboldweaksince \psi$ & $\tlletterweaksince \varphi$  & $\tlsymbweaksince \varphi$ & $\varphi$ must have held since $\psi$ has held. If $\psi$ never was true, $\varphi$ must have been true for the entire past trace.\\
+%
+%   \cs{tltrigger} & $\psi \tlboldtrigger \varphi$ & $\tllettertrigger \varphi$  & $\tlsymbtrigger \varphi$ & $\varphi$ must have held since and including the point where $\psi$ was true the last time, which must have held at the current or a past state.\\
+% \end{tblr}
 %
 % \clearpage
 % \subsection{MTL extension}
 % \label{sec:mtl_extension}
 %  The \emph{Future LTL} and \emph{Past LTL} operators may be extended with an
-%  optional interval to form \emph{MTL}.
+%  optional interval to form \emph{full MTL}, or simply \emph{MTL}.
 %  \begin{function}{
-%   \tleventually,
-%   \tlonce,
-%   \tltlglobally,
-%   \tlhistorically,
 %   \tlnext,
-%   \tlprevious,
+%   \tlfinally,
+%   \tleventually,
+%   \tlglobally,
 %   \tluntil,
-%   \tlsince}
+%   \tlrelease,
+%   \tlweakuntil,
+%   \tlstrongrelease,
+%   \tlmightyrelease,
+%   \tlyesterday,
+%   \tlprevious,
+%   \tlonce,
+%   \tlhistorically,
+%   \tlsince,
+%   \tlbackto,
+%   \tlweaksince,
+%   \tltrigger
+%   }
 %   \begin{syntax}
 %    \begin{tabular}{lc}
-%     \cs{tleventually}\oarg{Interval} & $\tleventually[[0,1]]$\\
-%     \cs{tlonce}\oarg{Interval} & $\tlonce[[0,1]]$\\
-%     \cs{tlglobally}\oarg{Interval} & $\tltlglobally[[0,1]]$\\
-%     \cs{tlhistorically}\oarg{Interval} & $\tlhistorically[[0,1]]$\\
 %     \cs{tlnext}\oarg{Interval} & $\tlnext[[0,1]]$\\
-%     \cs{tlprevious}\oarg{Interval} & $\tlprevious[[0,1]]$\\
+%     \cs{tlfinally}\oarg{Interval} & $\tlfinally[[0,1]]$\\
+%     \cs{tleventually}\oarg{Interval} & $\tleventually[[0,1]]$\\
+%     \cs{tlglobally}\oarg{Interval} & $\tlglobally[[0,1]]$\\
 %     \cs{tluntil}\oarg{Interval} & $\tluntil[[0,1]]$\\
+%     \cs{tlrelease}\oarg{Interval} & $\tlrelease[[0,1]]$\\
+%     \cs{tlweakuntil}\oarg{Interval} & $\tlweakuntil[[0,1]]$\\
+%     \cs{tlstrongrelease}\oarg{Interval} & $\tlstrongrelease[[0,1]]$\\
+%     \cs{tlmightyrelease}\oarg{Interval} & $\tlmightyrelease[[0,1]]$\\
+%     \cs{tlyesterday}\oarg{Interval} & $\tlyesterday[[0,1]]$\\
+%     \cs{tlprevious}\oarg{Interval} & $\tlprevious[[0,1]]$\\
+%     \cs{tlonce}\oarg{Interval} & $\tlonce[[0,1]]$\\
+%     \cs{tlhistorically}\oarg{Interval} & $\tlhistorically[[0,1]]$\\
 %     \cs{tlsince}\oarg{Interval} & $\tlsince[[0,1]]$\\
+%     \cs{tlbackto}\oarg{Interval} & $\tlbackto[[0,1]]$\\
+%     \cs{tlweaksince}\oarg{Interval} & $\tlweaksince[[0,1]]$\\
+%     \cs{tltrigger}\oarg{Interval} & $\tltrigger[[0,1]]$\\
 %   \end{tabular}
 %  \end{syntax}
 % \end{function}
@@ -211,7 +273,7 @@
 %  The trace is only evaluated in the given interval. An empty interval is
 %  considered to be $[0, \infty)$ for future and $(\infty, 0]$ for past
 %  operators. The first component of the interval always indicates the earlier
-%  state for both future and past operators.
+%  state for both future and past operators. Unmatched brackets can be generated using an extra group: \cs{tlnext[\{[0,$\infty$)\}]} $\implies \tlnext[{[0,\infty)}]$.
 %
 % \subsection{MFOTL extension}
 % \label{sec:mfotl_extension}
@@ -258,27 +320,69 @@
 %   \end{syntax}
 %  \end{function}
 %
-%  \noindent The semantics of the operators are defined as follows. Let $p$ be a
-%  fraction of states in the interval $[0,1]$:
-%  \begin{itemize}
-%   \item $\tlminprevalence{p}[I] \varphi$ expresses that $\varphi$ must hold in at
-%   least fraction $p$ of the future states in the interval $I$.
-%   \item $\tlpastminprevalence{p}[I] \varphi$ expresses that $\varphi$ must have held
-%   in at least fraction $p$ of the past states in the interval $I$.
-%   \item $\tlmaxprevalence{p}[I] \varphi$ expresses that $\varphi$ must hold in at
-%   most fraction $p$ of the future states in the interval $I$.
-%   \item $\tlpastmaxprevalence{p}[I] \varphi$ expresses that $\varphi$ must have held
-%   in at most fraction $p$ of the past states in the interval $I$.
-%   \item $\tlbind{v.id}{i}$ saves the valuation $v.id$ to the variable $i$ for
-%   later use in a nested formula, where $v$ already has a new value.
-%  \end{itemize}
+% \noindent
+% The symbols only have a symbolic representation and get rendered independent from the selected display mode (cf.~Sect.~\ref{sec:mode}). The symbols and the semantics of the operators are listed below:
 %
-%  \emph{minPrevalence} and \emph{maxPrevalence} take the desired precentage as
-%  another mandatory parameter. These operators may only be defined on finite
-%  traces since they argue about numbers of states. \emph{bind} has no optional
-%  interval but two mandatory arguments: the value to bind and the target
-%  variable.
+% \vspace{\baselineskip}
+% \noindent
+% \begin{tblr}{
+%     colspec={lcX},
+%     width=\textwidth,
+%     rowsep={3pt}
+%   }
+%   \textbf{Command} & \textbf{Symbolic} & \textbf{Semantics}\\
+%   \cs{tlminprevalence} &$\tlminprevalence{p}[I] \varphi$ & $\varphi$ must hold in at least fraction $p$ of the future states in the interval $I$.\\
+%   \cs{tlpastminprevalence} & $\tlpastminprevalence{p}[I] \varphi$ & $\varphi$ must have held in at least fraction $p$ of the past states in the interval $I$.\\
+%   \cs{tlmaxprevalence} & $\tlmaxprevalence{p}[I] \varphi$ & $\varphi$ must hold in at most fraction $p$ of the future states in the interval $I$.\\
+%   \cs{tlpastmaxprevalence} & $\tlpastmaxprevalence{p}[I] \varphi$ & $\varphi$ must have held in at most fraction $p$ of the past states in the interval $I$.\\
+%   \cs{tlbind} & $\tlbind{v.id}{i}$ & Saves the valuation $v.\mathrm{id}$ to the variable $i$ for later use in a nested formula, where $v$ already has a new value.
+% \end{tblr}
 %
+% \noindent
+% \emph{minPrevalence} and \emph{maxPrevalence} take the desired precentage as
+% another mandatory parameter. These operators may only be defined on finite
+% traces since they argue about numbers of states. \emph{bind} has no optional
+% interval but two mandatory arguments: the value to bind and the target
+% variable.
+%
+% \clearpage
+% \subsection{Additional operators}
+% \label{sec:additional_operators}
+%  For convenience we now consider four additional operators which are not
+%  similar to any standard operators.
+%
+% \begin{function}{
+%     \tlrise,
+%     \tlfall,
+%     \tlprophecy,
+%     \tlhistory
+%   }
+%   \begin{syntax}
+%     \cs{tlrise} \cs{varphi}
+%     \cs{tlfall} \cs{varphi}
+%     \cs{tlprophecy} \cs{varphi}
+%     \cs{tlhistory} \cs{varphi}
+%   \end{syntax}
+% \end{function}
+%
+% \noindent
+% The symbols only have a symbolic representation and get rendered independent from the selected display mode (cf.~Sect.~\ref{sec:mode}). The symbols and the semantics of the operators are listed below:
+%
+% \vspace{\baselineskip}
+% \noindent
+% \begin{tblr}{
+%     colspec={lcX},
+%     width=\textwidth,
+%     rowsep={3pt}
+%   }
+%   \textbf{Command} & \textbf{Symbolic} & \textbf{Semantics}\\
+%   \cs{tlrise} &$\tlrise \varphi$ & Holds when $\varphi$ becomes true, i.e. $\varphi$ holds at this time but did not hold in the immediate past.\\
+%   \cs{tlfall} &$\tlfall \varphi$ & Holds when $\varphi$ becomes false, i.e. $\varphi$ does not hold at this time but held in the immediate past.\\
+%   \cs{tlprophecy} &$\tlprophecy \varphi$ & Holds when there exists a first moment in the future where $\varphi$ holds, and the moment is in the interval.\\
+%   \cs{tlhistory} &$\tlhistory \varphi$ & Holds when there exists a last moment in the past where $\varphi$ held, and the moment is in the interval.\\
+% \end{tblr}
+%
+% \clearpage
 % \section{Usage in formulas}
 % \label{sec:usage}
 %  The commands may be directly used in math mode to create composite formulas.
@@ -286,7 +390,7 @@
 %  \begin{syntax}
 %   \begin{tabular}{ll}
 %    \cs{tleventually}\cs{varphi} & $\tleventually \varphi$\\
-%    \cs{tlglobally}[[0,1]]\cs{varphi} & $\tltlglobally[[0,1]] \varphi$
+%    \cs{tlglobally}[[0,1]]\cs{varphi} & $\tlglobally[[0,1]] \varphi$
 %   \end{tabular}
 %  \end{syntax}
 %
@@ -320,11 +424,11 @@
 % \begin{function}{
 %   \tlsymbeventually,
 %   \tlsymbonce,
-%   \tlsymbtlglobally,
+%   \tlsymbglobally,
 %   \tlsymbhistorically,
 %   \tlsymbnext,
 %   \tlsymbprevious,
-%   \tlsymbuntil,
+%   \tlletteruntil,
 %   \tlsymbsince,
 %   \tlsymbminprevalence,
 %   \tlsymbpastminprevalence,
@@ -335,12 +439,12 @@
 %   \begin{tabular}{lc}
 %     \cs{tlsymbeventually} & $\tlsymbeventually$\\
 %     \cs{tlsymbonce} & $\tlsymbonce$\\
-%     \cs{tlsymbtlglobally} & $\tlsymbtlglobally$\\
-%     \cs{tlsymbhistorically} & $\tlsymbhistorically$\\
+%     \cs{tlsymbglobally} & $\tlsymbglobally$\\
+%     \cs{tlsymbhistorically} & $\tlletterhistorically$\\
 %     \cs{tlsymbnext} & $\tlsymbnext$\\
 %     \cs{tlsymbprevious} & $\tlsymbprevious$\\
-%     \cs{tlsymbuntil} & $\tlsymbuntil$\\
-%     \cs{tlsymbsince} & $\tlsymbsince$\\
+%     \cs{tlletteruntil} & $\tlletteruntil$\\
+%     \cs{tlsymbsince} & $\tllettersince$\\
 %     \cs{tlsymbminprevalence} & $\tlsymbminprevalence$\\
 %     \cs{tlsymbpastminprevalence} & $\tlsymbpastminprevalence$\\
 %     \cs{tlsymbmaxprevalence} & $\tlsymbmaxprevalence$\\
@@ -443,150 +547,424 @@
   }
 }
 
-\DeclareMathOperator { \tlsymbeventually } {
-  \__@@_render_op:n {
-     \draw
-       (.5*\EX, 0) --
-       (.2*\EX, .5*\EX) --
-       (.5*\EX, \EX) --
-       (.8*\EX, .5*\EX) --
-       cycle;
-  }
+
+
+% Next
+\DeclareMathOperator { \tlboldnext } {
+    \ensuremath\mathbf{X}
 }
-\DeclareMathOperator { \tlsymbonce } {
-  \__@@_render_op:n {
-    \draw[fill]
-    (.5*\EX, 0) --
-    (.2*\EX, .5*\EX) --
-    (.5*\EX, \EX) --
-    (.8*\EX, .5*\EX) --
-    cycle;
-}
-}
-\DeclareMathOperator { \tlsymbtlglobally } {
-  \__@@_render_op:n {
-    \draw
-    (.15*\EX, .15*\EX)
-    rectangle
-    (.85*\EX, .85*\EX);
-  }
-}
-\DeclareMathOperator { \tlsymbhistorically } {
-  \__@@_render_op:n {
-    \draw[fill]
-    (.15*\EX, .15*\EX)
-    rectangle
-    (.85*\EX, .85*\EX);
-  }
+\DeclareMathOperator { \tlletternext } {
+    \ensuremath\mathcal{X}
 }
 \DeclareMathOperator { \tlsymbnext } {
-  \__@@_render_op:n {
-    \draw
-    (.5*\EX, .5*\EX)
-    circle
-    (.4*\EX);
-  }
-}
-\DeclareMathOperator { \tlsymbprevious } {
-  \__@@_render_op:n {
-    \draw[fill]
-    (.5*\EX, .5*\EX)
-    circle
-    (.4*\EX);
-  }
-}
-\DeclareMathOperator { \tlsymbuntil } {
-  \ensuremath\mathcal{U}
-}
-\DeclareMathOperator { \tlsymbsince } {
-  \ensuremath\mathcal{S}
-}
-\DeclareMathOperator { \tlsymbminprevalence } {
-  \__@@_render_op:n {
-    \draw
-      (.1*\EX, .9*\EX) --
-      (.9*\EX, .9*\EX) --
-      (.5*\EX, .1*\EX) --
-      cycle;
-  }
-}
-\DeclareMathOperator { \tlsymbpastminprevalence } {
-  \__@@_render_op:n {
-    \draw[fill]
-    (.1*\EX, .9*\EX) --
-    (.9*\EX, .9*\EX) --
-    (.5*\EX, .1*\EX) --
-    cycle;
-  }
-}
-\DeclareMathOperator { \tlsymbmaxprevalence } {
-  \__@@_render_op:n {
-    \draw
-    (.1*\EX, .1*\EX) --
-    (.9*\EX, .1*\EX) --
-    (.5*\EX, .9*\EX) --
-    cycle;
-}
-  }
-\DeclareMathOperator { \tlsymbpastmaxprevalence } {
-  \__@@_render_op:n {
-    \draw[fill]
-    (.1*\EX, .1*\EX) --
-    (.9*\EX, .1*\EX) --
-    (.5*\EX, .9*\EX) --
-    cycle;
-  }
-}
-\DeclareMathOperator { \tlsymbbind } {
-  \__@@_render_op:n {
-    \draw (.5*\EX, \EX) -- (.5*\EX, 0);
-    \draw
-      (.2*\EX, .3*\EX) ..
-      controls (.4*\EX, .2*\EX) ..
-      (.5*\EX, 0) ..
-      controls (.6*\EX, .2*\EX) ..
-      (.8*\EX, .3*\EX);
-  }
-}
-
-\ProvideDocumentCommand { \tleventually } { O{} } {
-  \__@@_op_sub:cn { tlsymbeventually } { #1 }
-}
-\ProvideDocumentCommand { \tlonce } { O{} } {
-  \__@@_op_sub:cn { tlsymbonce } { #1 }
-}
-\ProvideDocumentCommand { \tltlglobally } { O{} } {
-  \__@@_op_sub:cn { tlsymbtlglobally } { #1 }
-}
-\ProvideDocumentCommand { \tlhistorically } { O{} } {
-  \__@@_op_sub:cn { tlsymbhistorically } { #1 }
+    \__@@_render_op:n {
+        \draw
+        (.5*\EX, .5*\EX)
+        circle
+        (.4*\EX);
+    }
 }
 \ProvideDocumentCommand { \tlnext } { O{} } {
-  \__@@_op_sub:cn { tlsymbnext } { #1 }
+    \__@@_op_sub:cn { tlsymbnext } { #1 }
 }
-\ProvideDocumentCommand { \tlprevious } { O{} } {
-  \__@@_op_sub:cn { tlsymbprevious } { #1 }
+
+
+
+% Finally
+\DeclareMathOperator { \tlboldfinally } {
+    \ensuremath\mathbf{F}
+}
+\DeclareMathOperator { \tlletterfinally } {
+    \ensuremath\mathcal{F}
+}
+\DeclareMathOperator { \tlsymbfinally } {
+    \__@@_render_op:n {
+        \draw
+        (.5*\EX, 0) --
+        (.2*\EX, .5*\EX) --
+        (.5*\EX, \EX) --
+        (.8*\EX, .5*\EX) --
+        cycle;
+    }
+}
+\ProvideDocumentCommand { \tlfinally } { O{} } {
+    \__@@_op_sub:cn { tlsymbfinally } { #1 }
+}
+
+
+
+% Eventually
+\DeclareMathOperator { \tlboldeventually } { \tlboldfinally }
+\DeclareMathOperator { \tllettereventually } { \tlletterfinally }
+\DeclareMathOperator { \tlsymbeventually } { \tlsymbfinally }
+\ProvideDocumentCommand { \tleventually } { O{} } {
+    \__@@_op_sub:cn { tlsymbeventually } { #1 }
+}
+
+
+% Globally
+\DeclareMathOperator { \tlboldglobally } {
+    \ensuremath\mathbf{G}
+}
+\DeclareMathOperator { \tlletterglobally } {
+    \ensuremath\mathcal{G}
+}
+\DeclareMathOperator { \tlsymbglobally } {
+    \__@@_render_op:n {
+        \draw
+        (.15*\EX, .15*\EX)
+        rectangle
+        (.85*\EX, .85*\EX);
+    }
+}
+\ProvideDocumentCommand { \tlglobally } { O{} } {
+    \__@@_op_sub:cn { tlsymbglobally } { #1 }
+}
+
+
+
+% Until
+\DeclareMathOperator { \tlbolduntil } {
+    \ensuremath\mathbf{U}
+}
+\DeclareMathOperator { \tlletteruntil } {
+    \ensuremath\mathcal{U}
+}
+\DeclareMathOperator { \tlsymbuntil } {
+    \ensuremath\mathcal{U}
 }
 \ProvideDocumentCommand { \tluntil } { O{} } {
-  \__@@_op_sub:Nn { \;\tlsymbuntil } { #1 }
+    \__@@_op_sub:Nn { \;\tlsymbuntil } { #1 }
+}
+
+
+
+% Release
+\DeclareMathOperator { \tlboldrelease } {
+    \ensuremath\mathbf{R}
+}
+\DeclareMathOperator { \tlletterrelease } {
+    \ensuremath\mathcal{R}
+}
+\DeclareMathOperator { \tlsymbrelease } {
+    \ensuremath\mathcal{R}
+}
+\ProvideDocumentCommand { \tlrelease } { O{} } {
+    \__@@_op_sub:Nn { \;\tlsymbrelease } { #1 }
+}
+
+
+
+% Weak until
+\DeclareMathOperator { \tlboldweakuntil } {
+    \ensuremath\mathbf{W}
+}
+\DeclareMathOperator { \tlletterweakuntil } {
+    \ensuremath\mathcal{W}
+}
+\DeclareMathOperator { \tlsymbweakuntil } {
+    \ensuremath\mathcal{W}
+}
+\ProvideDocumentCommand { \tlweakuntil } { O{} } {
+    \__@@_op_sub:Nn { \;\tlsymbweakuntil } { #1 }
+}
+
+
+
+% Strong Release
+\DeclareMathOperator { \tlboldstrongrelease } {
+    \ensuremath\mathbf{M}
+}
+\DeclareMathOperator { \tlletterstrongrelease } {
+    \ensuremath\mathcal{M}
+}
+\DeclareMathOperator { \tlsymbstrongrelease } {
+    \ensuremath\mathcal{M}
+}
+\ProvideDocumentCommand { \tlstrongrelease } { O{} } {
+    \__@@_op_sub:Nn { \;\tlsymbstrongrelease } { #1 }
+}
+
+
+
+% Mighty Release
+\DeclareMathOperator { \tlboldmightyrelease } { \tlboldstrongrelease }
+\DeclareMathOperator { \tllettermightyrelease } { \tlletterstrongrelease }
+\DeclareMathOperator { \tlsymbmightyrelease } { \tlsymbstrongrelease }
+\ProvideDocumentCommand { \tlmightyrelease } { O{} } {
+    \__@@_op_sub:Nn { \;\tlsymbmightyrelease } { #1 }
+}
+
+
+
+% Yesterday
+\DeclareMathOperator { \tlboldyesterday } {
+    \ensuremath\mathbf{Y}
+}
+\DeclareMathOperator { \tlletteryesterday } {
+    \ensuremath\mathcal{Y}
+}
+\DeclareMathOperator { \tlsymbyesterday } {
+    \__@@_render_op:n {
+        \draw[fill]
+        (.5*\EX, .5*\EX)
+        circle
+        (.4*\EX);
+    }
+}
+\ProvideDocumentCommand { \tlyesterday } { O{} } {
+    \__@@_op_sub:cn { tlsymbyesterday } { #1 }
+}
+
+
+
+% Previous
+\DeclareMathOperator { \tlboldprevious } { \tlboldyesterday }
+\DeclareMathOperator { \tlletterprevious } { \tlletteryesterday }
+\DeclareMathOperator { \tlsymbprevious } { \tlsymbyesterday }
+\ProvideDocumentCommand { \tlprevious } { O{} } {
+    \__@@_op_sub:cn { tlsymbprevious } { #1 }
+}
+
+
+% Once
+\DeclareMathOperator { \tlboldonce } {
+    \ensuremath\mathbf{O}
+}
+\DeclareMathOperator { \tlletteronce } {
+    \ensuremath\mathcal{O}
+}
+\DeclareMathOperator { \tlsymbonce } {
+    \__@@_render_op:n {
+        \draw[fill]
+        (.5*\EX, 0) --
+        (.2*\EX, .5*\EX) --
+        (.5*\EX, \EX) --
+        (.8*\EX, .5*\EX) --
+        cycle;
+    }
+}
+\ProvideDocumentCommand { \tlonce } { O{} } {
+    \__@@_op_sub:cn { tlsymbonce } { #1 }
+}
+
+
+
+% Historically
+\DeclareMathOperator { \tlboldhistorically } {
+    \ensuremath\mathbf{H}
+}
+\DeclareMathOperator { \tlletterhistorically } {
+    \ensuremath\mathcal{H}
+}
+\DeclareMathOperator { \tlsymbhistorically } {
+    \__@@_render_op:n {
+        \draw[fill]
+        (.15*\EX, .15*\EX)
+        rectangle
+        (.85*\EX, .85*\EX);
+    }
+}
+\ProvideDocumentCommand { \tlhistorically } { O{} } {
+    \__@@_op_sub:cn { tlsymbhistorically } { #1 }
+}
+
+
+
+% Since
+\DeclareMathOperator { \tlboldsince } {
+    \ensuremath\mathbf{S}
+}
+\DeclareMathOperator { \tllettersince } {
+    \ensuremath\mathcal{S}
+}
+\DeclareMathOperator { \tlsymbsince } {
+    \ensuremath\mathcal{S}
 }
 \ProvideDocumentCommand { \tlsince } { O{} } {
-  \__@@_op_sub:Nn { \;\tlsymbsince } { #1 }
+    \__@@_op_sub:Nn { \;\tlsymbsince } { #1 }
+}
+
+
+
+% Back to
+\DeclareMathOperator { \tlboldbackto } {
+    \ensuremath\mathbf{B}
+}
+\DeclareMathOperator { \tlletterbackto } {
+    \ensuremath\mathcal{B}
+}
+\DeclareMathOperator { \tlsymbbackto } {
+    \ensuremath\mathcal{B}
+}
+\ProvideDocumentCommand { \tlbackto } { O{} } {
+    \__@@_op_sub:Nn { \;\tlsymbbackto } { #1 }
+}
+
+
+
+% Weak Since
+\DeclareMathOperator { \tlboldweaksince } {
+    \ensuremath\mathbf{WS}
+}
+\DeclareMathOperator { \tlletterweaksince } {
+    \ensuremath\mathcal{WS}
+}
+\DeclareMathOperator { \tlsymbweaksince } {
+    \ensuremath\mathcal{WS}
+}
+\ProvideDocumentCommand { \tlweaksince } { O{} } {
+    \__@@_op_sub:Nn { \;\tlsymbweaksince } { #1 }
+}
+
+
+
+% Trigger
+\DeclareMathOperator { \tlboldtrigger } {
+    \ensuremath\mathbf{T}
+}
+\DeclareMathOperator { \tllettertrigger } {
+    \ensuremath\mathcal{T}
+}
+\DeclareMathOperator { \tlsymbtrigger } {
+    \ensuremath\mathcal{T}
+}
+\ProvideDocumentCommand { \tltrigger } { O{} } {
+    \__@@_op_sub:Nn { \;\tlsymbtrigger } { #1 }
+}
+
+
+
+% Min-/Max prevalence, Bind
+\DeclareMathOperator { \tlsymbminprevalence } {
+    \__@@_render_op:n {
+        \draw
+        (.1*\EX, .9*\EX) --
+        (.9*\EX, .9*\EX) --
+        (.5*\EX, .1*\EX) --
+        cycle;
+    }
+}
+\DeclareMathOperator { \tlsymbpastminprevalence } {
+    \__@@_render_op:n {
+        \draw[fill]
+        (.1*\EX, .9*\EX) --
+        (.9*\EX, .9*\EX) --
+        (.5*\EX, .1*\EX) --
+        cycle;
+    }
+}
+\DeclareMathOperator { \tlsymbmaxprevalence } {
+    \__@@_render_op:n {
+        \draw
+        (.1*\EX, .1*\EX) --
+        (.9*\EX, .1*\EX) --
+        (.5*\EX, .9*\EX) --
+        cycle;
+    }
+}
+\DeclareMathOperator { \tlsymbpastmaxprevalence } {
+    \__@@_render_op:n {
+        \draw[fill]
+        (.1*\EX, .1*\EX) --
+        (.9*\EX, .1*\EX) --
+        (.5*\EX, .9*\EX) --
+        cycle;
+    }
+}
+\DeclareMathOperator { \tlsymbbind } {
+    \__@@_render_op:n {
+        \draw (.5*\EX, \EX) -- (.5*\EX, 0);
+        \draw
+        (.2*\EX, .3*\EX) ..
+        controls (.4*\EX, .2*\EX) ..
+        (.5*\EX, 0) ..
+        controls (.6*\EX, .2*\EX) ..
+        (.8*\EX, .3*\EX);
+    }
 }
 \ProvideDocumentCommand { \tlminprevalence } { m O{} } {
-  \__@@_op_sup_sub:cnn { tlsymbminprevalence } { #1 } { #2 }
+    \__@@_op_sup_sub:cnn { tlsymbminprevalence } { #1 } { #2 }
 }
 \ProvideDocumentCommand { \tlpastminprevalence } { m O{} } {
-  \__@@_op_sup_sub:cnn { tlsymbpastminprevalence } { #1 } { #2 }
+    \__@@_op_sup_sub:cnn { tlsymbpastminprevalence } { #1 } { #2 }
 }
 \ProvideDocumentCommand { \tlmaxprevalence } { m O{} } {
-  \__@@_op_sup_sub:cnn { tlsymbmaxprevalence } { #1 } { #2 }
+    \__@@_op_sup_sub:cnn { tlsymbmaxprevalence } { #1 } { #2 }
 }
 \ProvideDocumentCommand { \tlpastmaxprevalence } { m O{} } {
-  \__@@_op_sup_sub:cnn { tlsymbpastmaxprevalence } { #1 } { #2 }
+    \__@@_op_sup_sub:cnn { tlsymbpastmaxprevalence } { #1 } { #2 }
 }
 \ProvideDocumentCommand { \tlbind } { m m } {
-  \__@@_op_sup_sub:cnn { tlsymbbind } { #1 } { #2 }
+    \__@@_op_sup_sub:cnn { tlsymbbind } { #1 } { #2 }
+}
+
+
+
+% Rise
+\DeclareMathOperator { \tlsymbrise } {
+    \__@@_render_op:n {
+        \draw
+        (.1*\EX, .1*\EX) --
+        (.9*\EX, .9*\EX);
+        \draw 
+        (.4*\EX, .9*\EX) --
+        (.9*\EX, .9*\EX) --
+        (.9*\EX, .4*\EX);
+    }
+} % TODO
+\ProvideDocumentCommand { \tlrise } { O{} } {
+    \__@@_op_sub:cn { tlsymbrise } { #1 }
+}
+
+
+
+% Fall
+\DeclareMathOperator { \tlsymbfall } {
+    \__@@_render_op:n {
+        \draw
+        (.1*\EX, .9*\EX) --
+        (.9*\EX, .1*\EX);
+        \draw 
+        (.4*\EX, .1*\EX) --
+        (.9*\EX, .1*\EX) --
+        (.9*\EX, .6*\EX);
+    }
+} % TODO
+\ProvideDocumentCommand { \tlfall } { O{} } {
+    \__@@_op_sub:cn { tlsymbfall } { #1 }
+}
+
+
+
+% Prophecy
+\DeclareMathOperator { \tlsymbprophecy } {
+    \__@@_render_op:n {
+        \draw
+        (.1*\EX, .1*\EX) --
+        (.1*\EX, .9*\EX) --
+        (.9*\EX, .5*\EX) --
+        cycle;
+    }
+} % TODO
+\ProvideDocumentCommand { \tlprophecy } { O{} } {
+    \__@@_op_sub:cn { tlsymbprophecy } { #1 }
+}
+
+
+
+% History
+\DeclareMathOperator { \tlsymbhistory } {
+    \__@@_render_op:n {
+        \draw
+        (.9*\EX, .1*\EX) --
+        (.9*\EX, .9*\EX) --
+        (.1*\EX, .5*\EX) --
+        cycle;
+    }
+} % TODO
+\ProvideDocumentCommand { \tlhistory } { O{} } {
+    \__@@_op_sub:cn { tlsymbhistory } { #1 }
 }
 % </package>
 %    \end{macrocode}
