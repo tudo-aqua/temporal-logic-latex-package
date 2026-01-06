@@ -1,0 +1,58 @@
+\documentclass{minimal}
+\usepackage[displaymode=bold, scriptmode=roman]{temporal-logic}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+    \begin{tabular}{l|l|l}
+    ``$\tlopnext\varphi$''           & $\tlnext\varphi$              & $\tlnext[[0,1]]\varphi$\\
+
+    ``$\tlopeventually$''            & $\tleventually\varphi$        & $\tleventually[[0,1]]\varphi$\\
+
+    ``$\tlopglobally$''              & $\tlglobally\varphi$          & $\tlglobally[[0,1]]\varphi$\\
+
+    ``$\tlopuntil$''                 & $\psi\tluntil\varphi$         & $\psi\tluntil[[0,1]]\varphi$\\
+
+    ``$\tloprelease$''               & $\psi\tlrelease\varphi$       & $\psi\tlrelease[[0,1]]\varphi$\\
+
+    ``$\tlopweakuntil$''             & $\psi\tlweakuntil\varphi$     & $\psi\tlweakuntil[[0,1]]\varphi$\\
+
+    ``$\tlopstrongrelease$''         & $\psi\tlstrongrelease\varphi$ & $\psi\tlstrongrelease[[0,1]]\varphi$\\
+
+    ``$\tlopprevious$''              & $\tlprevious\varphi$          & $\tlprevious[[0,1]]\varphi$\\
+
+    ``$\tloponce$''                  & $\tlonce\varphi$              & $\tlonce[[0,1]]\varphi$\\
+
+    ``$\tlophistorically$''          & $\tlhistorically\varphi$      & $\tlhistorically[[0,1]]\varphi$\\
+
+    ``$\tlopsince$''                 & $\psi\tlsince\varphi$         & $\psi\tlsince[[0,1]]\varphi$\\
+
+    ``$\tlopbackto$''                & $\psi\tlbackto\varphi$        & $\psi\tlbackto[[0,1]]\varphi$\\
+
+    ``$\tlopweaksince$''             &  $\psi\tlweaksince\varphi$    & $\psi\tlweaksince[[0,1]]\varphi$\\
+
+    ``$\tloptrigger$''               & $\psi\tltrigger\varphi$       & $\psi\tltrigger[[0,1]]\varphi$\\
+
+    ``$\tlopminprevalence{0.8}$''    & $\tlminprevalence{0.8}\varphi$       & $\tlminprevalence{0.8}[[0,1]]\varphi$\\
+
+    ``$\tlopmaxprevalence{0.8}$'    '& $\tlmaxprevalence{0.8}\varphi$       & $\tlmaxprevalence{0.8}[[0,1]]\varphi$\\
+
+    ``$\tloppastminprevalence{0.8}$''& $\tlpastminprevalence{0.8}\varphi$   & $\tlpastminprevalence{0.8}[[0,1]]\varphi$\\
+
+    ``$\tloppastmaxprevalence{0.8}\varphi$''& $\tloppastmaxprevalence{0.8}\varphi$ & $\tlpastmaxprevalence{0.8}[[0,1]]\varphi$\\
+
+    ``$\tlopbind{\mathit{t.id}}{id}$''\\
+
+    ``$\tloprise$''               & $\tlrise\varphi$       & $\tlrise[[0,1]]\varphi$\\
+
+    ``$\tlopfall$''               & $\tlfall\varphi$       & $\tlfall[[0,1]]\varphi$\\
+
+    ``$\tlopprophecy$''               & $\tlprophecy\varphi$       & $\tlprophecy[[0,1]]\varphi$\\
+
+    ``$\tlophistory$''               & $\tlhistory\varphi$       & $\tlhistory[[0,1]]\varphi$\\
+    \end{tabular}
+
+    Displaymode: \tldisplaymode
+
+    Scriptmode: \tlscriptmode
+\end{document}
