@@ -2,7 +2,7 @@
 %
 % File: temporal-logic.dtx
 %
-% Copyright (C) 2024 Dominik Schmid and Till Schallau
+% Copyright (C) 2026 Dominik Schmid
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3c
@@ -34,10 +34,15 @@
 % \fi
 %
 % \title{temporal-logic}
-% \author{Dominik Schmid and Till Schallau}
+% \author{Dominik Schmid}
 % \date{Version 1.0}
 %
 % \maketitle
+% \setlength{\parindent}{0ex}
+% \tolerance=1
+% \emergencystretch=\maxdimen
+% \hyphenpenalty=10000
+% \hbadness=10000
 %
 % \begin{documentation}
 %
@@ -76,105 +81,162 @@
 %  or \cs{text} may be used.
 %
 %  The symbols come in two variants: A standalone version for mentioning logic
-%  symbols in text without additional formula spacing is described in
-%  Sect.~\ref{sec:standalone_symbols} and a formula version, also providing
-%  additional parameters, is described in Sect.~\ref{sec:future_ltl} --
-%  Sect.~\ref{sec:cmftbl_extension}. The formula version should always be
+%  symbols in text without additional formula spacing and a formula version,
+%  also providing additional parameters. The formula version should always be
 %  preferred over the standalone symbols in formulas as they provide
 %  additional spaces and explicitly enforce the correct usage of superscript
 %  and subscript via mandatory parameters. The naming scheme of the operators
 %  is chosen such that each command reflects the name of the temporal operator
 %  prefixed with a ``tl'' for \textit{temporal logic}. Standalone symbols, as
-%  described in Sect.~\ref{sec:standalone_symbols}, are prefixed with ``tlsymb''.
-%  Those prefixes are necessary to prevent name clashes with built-in \LaTeX commands.
+%  described in Sect.~\ref{sec:standalone_symbols}, are prefixed with
+%  ``tlop''. Those prefixes are necessary to prevent name clashes with
+%  built-in \LaTeX{} commands.
+%
+% \subsection{Package options}
+%  \label{sec:options}
+%  Each operator is available as a \emph{bold}, \emph{calligraphic}, and
+%  \emph{symbolic} version (if available). Details are described in
+%  sections~\ref{sec:future_ltl}--\ref{sec:additional_operators} The displayed
+%  version can be switched by passing an optional package option:
+%
+%  \begin{function}{
+%   displaymode=bold,
+%   displaymode=caligraphic,
+%   displaymode=symbol}
+%   \begin{syntax}
+%    Bold display mode
+%    Caligraphic display mode
+%    Symbol display mode (default)
+%   \end{syntax}
+%  \end{function}
+%
+%  For brevity, \texttt{displaymode=} can be omitted.
+%
+%  The superscripts and subscripts are automatically captured by
+%  \texttt{mathrm} / \texttt{mathit}. To switch bewteen roman and italic
+%  display, the \texttt{scriptmode} can be passed:
+%
+%  \begin{function}{
+%   scriptmode=roman,
+%   scriptmode=italic}
+%   \begin{syntax}
+%    Roman script mode (default)
+%    Italic script mode
+%   \end{syntax}
+%  \end{function}
+%
+%  For brevity, \texttt{scriptmode=} can be omitted. This setting can be
+%  locally overridden by capturing the individual parameters into another
+%  \texttt{mathrm} / \texttt{mathit}.
 %
 % \subsection{Manual structure}
 %  This manual is structured as follows. First, the symbols for \emph{Future
-%  LTL} and \emph{Past LTL} are introducted in Sect.~\ref{sec:future_ltl} and
+%  LTL} and \emph{Past LTL} are introduced in Sect.~\ref{sec:future_ltl} and
 %  Sect.~\ref{sec:past_ltl}. The additional intervals from \emph{MTL} are
 %  described in Sect.~\ref{sec:mtl_extension}. The operators introduced
 %  in \emph{MFOTL} and \emph{CMFTBL} are described in
 %  Sect.~\ref{sec:mfotl_extension} and Sect.~\ref{sec:cmftbl_extension}.
+%  Additional operators are defined in Sect.~\ref{sec:additional_operators}.
 %  Section~\ref{sec:usage} shows the usage of the symbols in formulas.
 %  Section~\ref{sec:standalone_symbols} closes the
 %  command definitions with the standalone symbols for usage in text.
-%  Finally, Sect.~\ref{sec:operator_scaling} demonstrates the automatic scaling
-%  of the operators.
-%
-% \subsection{Dependencies}
-%   The package loads the following dependencies:
-%   \begin{itemize}
-%     \item \emph{expl3} For \LaTeX 3 support.
-%     \item \emph{xparse} For parsing the mandatory and optional arguments.
-%     \item \emph{amsmath} For symbol definitions.
-%     \item \emph{tikz} For rendering of symbols.
-%   \end{itemize}
 %
 % \clearpage
 % \section{Symbol definitions}
 % \subsection{Future LTL symbols}
-% \label{sec:future_ltl}
-% \emph{Future LTL}, or simply \emph{LTL}, defines operators to argue about the future. This includes the following operators.
-% \begin{function}{
-%     \tlnext,
-%     \tlfinally,
-%     \tleventually,
-%     \tlglobally,
-%     \tluntil,
-%     \tlrelease,
-%     \tlweakuntil,
-%     \tlstrongrelease,
-%     \tlmightyrelease
-%   }
+%  \label{sec:future_ltl}
+%  \emph{Future LTL}, or simply \emph{LTL}, defines operators to argue about
+%  the future. This includes the following operators.
+%  \begin{function}{
+%   \tlnext,
+%   \tlfinally,
+%   \tleventually,
+%   \tlglobally,
+%   \tluntil,
+%   \tlrelease,
+%   \tlweakuntil,
+%   \tlstrongrelease,
+%   \tlmightyrelease}
 %   \begin{syntax}
-%     \cs{tlnext} \cs{varphi}
-%     \cs{tlfinally} \cs{varphi}
-%     \cs{tleventually} \cs{varphi}
-%     \cs{tlglobally} \cs{varphi}
-%     \cs{varphi} \cs{tluntil} \cs{psi}
-%     \cs{psi} \cs{tlrelease} \cs{varphi}
-%     \cs{varphi} \cs{tlweakuntil} \cs{psi}
-%     \cs{psi} \cs{tlstrongrelease} \cs{varphi}
-%     \cs{psi} \cs{tlmightyrelease} \cs{varphi}
+%    \cs{tlnext} \cs{varphi}
+%    \cs{tlfinally} \cs{varphi}
+%    \cs{tleventually} \cs{varphi}
+%    \cs{tlglobally} \cs{varphi}
+%    \cs{varphi} \cs{tluntil} \cs{psi}
+%    \cs{psi} \cs{tlrelease} \cs{varphi}
+%    \cs{varphi} \cs{tlweakuntil} \cs{psi}
+%    \cs{psi} \cs{tlstrongrelease} \cs{varphi}
+%    \cs{psi} \cs{tlmightyrelease} \cs{varphi}
 %   \end{syntax}
-% \end{function}
+%  \end{function}
 %
-% \noindent
-% The symbols get rendered according to the selected display mode (cf.~Sect.~\ref{sec:mode}). The symbols and the common semantics of the operators are listed below:
+%  \noindent
+%  The symbols get rendered according to the selected display mode
+%  (cf.~Sect.~\ref{sec:options}). The symbols and the common semantics of the
+%  operators are listed below:
 %
-% \vspace{\baselineskip}
-% \noindent
-% \begin{tblr}{
-%     colspec={lcccX},
-%     width=\textwidth,
-%     rowsep={3pt}
-%   }
-%   \textbf{Command}  & \textbf{Bold} & \textbf{Textual} & \textbf{Symbolic} & \textbf{Semantics}\\
-%   \cs{tlnext}       & $\tlboldnext \varphi$ & $\tlletternext \varphi$ & $\tlsymbnext \varphi$ & 
+%  \vspace{\baselineskip}
+%  \noindent
+%  \begin{tblr}{
+%   colspec={lcccX},
+%   width=\textwidth,
+%   rowsep={3pt}
+%  }
+%   \textbf{Command} &
+%   \textbf{Bold} &
+%   \textbf{Textual} &
+%   \textbf{Symbolic} &
+%   \textbf{Semantics}\\
+%
+%   \cs{tlnext} &
+%   $\tlboldnext \varphi$ &
+%   $\tlletternext \varphi$ &
+%   $\tlsymbnext \varphi$ &
 %   $\varphi$ must hold at the next state.\\
 %
-%   {\cs{tlfinally} \\ \cs{tleventually}}    & {$\tlboldfinally \varphi$} & {$\tlletterfinally \varphi$} & {$\tlsymbfinally \varphi$} &  
+%   {\cs{tlfinally} \\ \cs{tleventually}} &
+%   {$\tlboldfinally \varphi$} &
+%   {$\tlletterfinally \varphi$} &
+%   {$\tlsymbfinally \varphi$} &
 %   $\varphi$ must hold at least once in the future.\\
 %
-%   \cs{tlglobally}   & $\tlboldglobally \varphi$ & $\tlletterglobally \varphi$ & $\tlsymbglobally \varphi$ & 
+%   \cs{tlglobally}   &
+%   $\tlboldglobally \varphi$ &
+%   $\tlletterglobally \varphi$ &
+%   $\tlsymbglobally \varphi$ &
 %   $\varphi$ must hold from now for the entire trace.\\
 %
-%   \cs{tluntil}      & $\varphi \tlbolduntil \psi$ & $\varphi \tlletteruntil \psi$ & $\varphi \tlsymbuntil \psi$ & 
-%   $\varphi$ must hold at least until $\psi$ holds, which must hold at the current or a future position.\\
+%   \cs{tluntil} &
+%   $\varphi \tlbolduntil \psi$ &
+%   $\varphi \tlletteruntil \psi$ &
+%   $\varphi \tlsymbuntil \psi$ &
+%   $\varphi$ must hold at least until $\psi$ holds, which must hold at the
+%   current or a future position.\\
 %
-%   \cs{tlrelease} & $\psi \tlboldrelease \varphi$ & $\psi \tlletterrelease \varphi$ & $\psi \tlsymbrelease \varphi$ & 
-%   $\varphi$ must hold until and including the point where $\psi$ first becomes true. If $\psi$ never becomes true, $\varphi$ must remain true for the entire trace.\\
+%   \cs{tlrelease} &
+%   $\psi \tlboldrelease \varphi$ &
+%   $\psi \tlletterrelease \varphi$ & $\psi \tlsymbrelease \varphi$ &
+%   $\varphi$ must hold until and including the point where $\psi$ first
+%   becomes true. If $\psi$ never becomes true, $\varphi$ must remain true
+%   for the entire trace.\\
 %
-%   \cs{tlweakuntil} & $\varphi \tlboldweakuntil \psi$ & $\varphi \tlletterweakuntil \psi$ & $\varphi \tlsymbweakuntil \psi$ & 
-%   $\varphi$ must to hold at least until $\psi$ holds. If $\psi$ never becomes true, $\phi$ must remain true for the entire trace.\\
+%   \cs{tlweakuntil} &
+%   $\varphi \tlboldweakuntil \psi$ &
+%   $\varphi \tlletterweakuntil \psi$ & $\varphi \tlsymbweakuntil \psi$ &
+%   $\varphi$ must hold at least until $\psi$ holds. If $\psi$ never
+%   becomes true, $\phi$ must remain true for the entire trace.\\
 %
-%   {\cs{tlstrongrelease} \\ \cs{tlmightyrelease}} & $\psi \tlboldstrongrelease \varphi$ & $\psi \tlletterstrongrelease \varphi$ & $\psi \tlsymbstrongrelease \varphi$ & 
-%    $\varphi$ must hold until and including the point where $\psi$ first becomes true, which must hold at the current or a future position.\\
-% \end{tblr}
+%   {\cs{tlstrongrelease} \\ \cs{tlmightyrelease}} &
+%   $\psi \tlboldstrongrelease \varphi$ &
+%   $\psi \tlletterstrongrelease \varphi$ &
+%   $\psi \tlsymbstrongrelease \varphi$ &
+%   $\varphi$ must hold until and including the point where $\psi$ first
+%   becomes true, which must hold at the current or a future position.\\
+%  \end{tblr}
 %
 % \clearpage
 % \subsection{Past LTL symbols}
-% \label{sec:past_ltl}
+%  \label{sec:past_ltl}
 %  \emph{Past LTL} defines operators analogous to \emph{Future LTL} to argue
 %  about the past. The symbols are identical but are filled solid black.
 %  \begin{function}{
@@ -185,46 +247,82 @@
 %   \tlsince,
 %   \tlbackto,
 %   \tlweaksince,
-%   \tltrigger
-%   }
+%   \tltrigger}
 %   \begin{syntax}
-%     \cs{tlyesterday} \cs{varphi}
-%     \cs{tlprevious} \cs{varphi}
-%     \cs{tlonce} \cs{varphi}
-%     \cs{tlhistorically} \cs{varphi}
-%     \cs{varphi} \cs{tlsince} \cs{psi}
-%     \cs{psi} \cs{backto} \cs{varphi}
-%     \cs{varphi} \cs{tlweaksince} \cs{psi}
-%     \cs{psi} \cs{tltrigger} \cs{varphi}
+%    \cs{tlyesterday} \cs{varphi}
+%    \cs{tlprevious} \cs{varphi}
+%    \cs{tlonce} \cs{varphi}
+%    \cs{tlhistorically} \cs{varphi}
+%    \cs{varphi} \cs{tlsince} \cs{psi}
+%    \cs{psi} \cs{backto} \cs{varphi}
+%    \cs{varphi} \cs{tlweaksince} \cs{psi}
+%    \cs{psi} \cs{tltrigger} \cs{varphi}
 %   \end{syntax}
 %  \end{function}
 %
-% \vspace{\baselineskip}
-% \noindent
-% \begin{tblr}{
-%     colspec={lcccX},
-%     width=\textwidth,
-%     rowsep={3pt}
-%   }
-%   \textbf{Command} & \textbf{Bold} & \textbf{Textual} & \textbf{Symbolic} & \textbf{Semantics}\\
-%   {\cs{tlyesterday} \\ \cs{tlprevious}} & $\tlboldyesterday \varphi$ & $\tlletteryesterday \varphi$ & $\tlsymbyesterday \varphi$ & $\varphi$ must have held at the previous state.\\
+%  \vspace{\baselineskip}
+%  \noindent
+%  \begin{tblr}{
+%   colspec={lcccX},
+%   width=\textwidth,
+%   rowsep={3pt}
+%  }
+%   \textbf{Command} &
+%   \textbf{Bold} &
+%   \textbf{Textual} &
+%   \textbf{Symbolic} &
+%   \textbf{Semantics}\\
 %
-%   \cs{tlonce} & $\tlboldonce \varphi$ & $\tlletteronce \varphi$  & $\tlsymbonce \varphi$  & $\varphi$ must have held at least once in the past.\\
+%   {\cs{tlyesterday} \\ \cs{tlprevious}} &
+%   $\tlboldyesterday \varphi$ &
+%   $\tlletteryesterday \varphi$ &
+%   $\tlsymbyesterday \varphi$ &
+%   $\varphi$ must have held at the previous state.\\
 %
-%   \cs{tlhistorically} & $\tlboldhistorically \varphi$ & $\tlletterhistorically \varphi$  & $\tlsymbhistorically \varphi$ & $\varphi$ must have held until now for the entire past trace\\
+%   \cs{tlonce} &
+%   $\tlboldonce \varphi$ &
+%   $\tlletteronce \varphi$  &
+%   $\tlsymbonce \varphi$  &
+%   $\varphi$ must have held at least once in the past.\\
 %
-%   \cs{tlsince} & $\varphi \tlboldsince \psi$ & $\tllettersince \varphi$  & $\tllettersince \varphi$ & $\varphi$ must have held since $\psi$ has held, which must have held at the current or a past state.\\
+%   \cs{tlhistorically} &
+%   $\tlboldhistorically \varphi$ &
+%   $\tlletterhistorically \varphi$  &
+%   $\tlsymbhistorically \varphi$ &
+%   $\varphi$ must have held until now for the entire past trace.\\
 %
-%   \cs{tlbackto} & $\psi \tlboldbackto \varphi$ & $\tlletterbackto \varphi$  & $\tlsymbbackto \varphi$  & $\varphi$ must have held since and including the point where $\psi$ was true the last time. If $\psi$ never was true, $\varphi$ must have been true for the entire past trace.\\
+%   \cs{tlsince} &
+%   $\varphi \tlboldsince \psi$ &
+%   $\tllettersince \varphi$  &
+%   $\tllettersince \varphi$ &
+%   $\varphi$ must have held since $\psi$ has held, which must have held at
+%   the current or a past state.\\
 %
-%   \cs{tlweaksince} & $\varphi \tlboldweaksince \psi$ & $\tlletterweaksince \varphi$  & $\tlsymbweaksince \varphi$ & $\varphi$ must have held since $\psi$ has held. If $\psi$ never was true, $\varphi$ must have been true for the entire past trace.\\
+%   \cs{tlbackto} &
+%   $\psi \tlboldbackto \varphi$ &
+%   $\tlletterbackto \varphi$  &
+%   $\tlsymbbackto \varphi$  &
+%   $\varphi$ must have held since and including the point where $\psi$ was
+%   true the last time. If $\psi$ never was true, $\varphi$ must have been
+%   true for the entire past trace.\\
 %
-%   \cs{tltrigger} & $\psi \tlboldtrigger \varphi$ & $\tllettertrigger \varphi$  & $\tlsymbtrigger \varphi$ & $\varphi$ must have held since and including the point where $\psi$ was true the last time, which must have held at the current or a past state.\\
-% \end{tblr}
+%   \cs{tlweaksince} &
+%   $\varphi \tlboldweaksince \psi$ &
+%   $\tlletterweaksince \varphi$  &
+%   $\tlsymbweaksince \varphi$ &
+%   $\varphi$ must have held since $\psi$ has held. If $\psi$ never was true,
+%   $\varphi$ must have been true for the entire past trace.\\
+%
+%   \cs{tltrigger} &
+%   $\psi \tlboldtrigger \varphi$ &
+%   $\tllettertrigger \varphi$  & $\tlsymbtrigger \varphi$ &
+%   $\varphi$ must have held since and including the point where $\psi$ was
+%   true the last time, which must have held at the current or a past state.\\
+%  \end{tblr}
 %
 % \clearpage
 % \subsection{MTL extension}
-% \label{sec:mtl_extension}
+%  \label{sec:mtl_extension}
 %  The \emph{Future LTL} and \emph{Past LTL} operators may be extended with an
 %  optional interval to form \emph{full MTL}, or simply \emph{MTL}.
 %  \begin{function}{
@@ -244,8 +342,7 @@
 %   \tlsince,
 %   \tlbackto,
 %   \tlweaksince,
-%   \tltrigger
-%   }
+%   \tltrigger}
 %   \begin{syntax}
 %    \begin{tabular}{lc}
 %     \cs{tlnext}\oarg{Interval} & $\tlnext[[0,1]]$\\
@@ -265,21 +362,24 @@
 %     \cs{tlbackto}\oarg{Interval} & $\tlbackto[[0,1]]$\\
 %     \cs{tlweaksince}\oarg{Interval} & $\tlweaksince[[0,1]]$\\
 %     \cs{tltrigger}\oarg{Interval} & $\tltrigger[[0,1]]$\\
-%   \end{tabular}
-%  \end{syntax}
-% \end{function}
+%    \end{tabular}
+%   \end{syntax}
+%  \end{function}
 %
 %  \noindent The semantics of the intervals are commonly defined as follows:
 %  The trace is only evaluated in the given interval. An empty interval is
 %  considered to be $[0, \infty)$ for future and $(\infty, 0]$ for past
 %  operators. The first component of the interval always indicates the earlier
-%  state for both future and past operators. Unmatched brackets can be generated using an extra group: \cs{tlnext[\{[0,$\infty$)\}]} $\implies \tlnext[{[0,\infty)}]$.
+%  state for both future and past operators. Unmatched brackets can be
+%  generated using an extra group: \cs{tlnext[\{[0,$\infty$)\}]} $\implies
+%  \tlnext[{[0,\infty)}]$.
 %
 % \subsection{MFOTL extension}
-% \label{sec:mfotl_extension}
-%  \emph{MFOTL} introduces the first-order quantifiers $\exists$ and $\forall$.
+%  \label{sec:mfotl_extension}
+%  \emph{MFOTL} introduces the first-order quantifiers $\exists$ and
+%  $\forall$.
 %  This package does not provide additional symbols, as the built-in ones
-%  already contained in \LaTeX~may be used.
+%  already contained in \LaTeX{} may be used.
 %
 %  \begin{function}{
 %   \exists,
@@ -294,7 +394,7 @@
 %
 % \clearpage
 % \subsection{CMFTBL extension}
-% \label{sec:cmftbl_extension}
+%  \label{sec:cmftbl_extension}
 %  \emph{CMFTBL} extends \emph{MFOTL} by the operators \emph{minPrevalence},
 %  \emph{maxPrevalence}, their past forms, and the \emph{bind} operator.
 %
@@ -308,85 +408,127 @@
 %    \begin{tabular}{lc}
 %     \cs{tlminprevalence}\marg{Percentage}\oarg{Interval} &
 %     $\tlminprevalence{0.8}[[0,1]]$\\
+%
 %     \cs{tlpastminprevalence}\marg{Percentage}\oarg{Interval} &
 %     $\tlpastminprevalence{0.8}[[0,1]]$\\
+%
 %     \cs{tlmaxprevalence}\marg{Percentage}\oarg{Interval} &
 %     $\tlmaxprevalence{0.8}[[0,1]]$\\
+%
 %     \cs{tlpastmaxprevalence}\marg{Percentage}\oarg{Interval} &
 %     $\tlpastmaxprevalence{0.8}[[0,1]]$\\
+%
 %     \cs{tlbind}\marg{Valuation}\marg{Variable} &
 %     $\tlbind{v.id}{i}$\\
 %    \end{tabular}
 %   \end{syntax}
 %  \end{function}
 %
-% \noindent
-% The symbols only have a symbolic representation and get rendered independent from the selected display mode (cf.~Sect.~\ref{sec:mode}). The symbols and the semantics of the operators are listed below:
+%  \noindent
+%  The symbols only have a symbolic representation and get rendered
+%  independent from the selected display mode (cf.~Sect.~\ref{sec:options}).
+%  The symbols and the semantics of the operators are listed below:
 %
-% \vspace{\baselineskip}
-% \noindent
-% \begin{tblr}{
-%     colspec={lcX},
-%     width=\textwidth,
-%     rowsep={3pt}
-%   }
-%   \textbf{Command} & \textbf{Symbolic} & \textbf{Semantics}\\
-%   \cs{tlminprevalence} &$\tlminprevalence{p}[I] \varphi$ & $\varphi$ must hold in at least fraction $p$ of the future states in the interval $I$.\\
-%   \cs{tlpastminprevalence} & $\tlpastminprevalence{p}[I] \varphi$ & $\varphi$ must have held in at least fraction $p$ of the past states in the interval $I$.\\
-%   \cs{tlmaxprevalence} & $\tlmaxprevalence{p}[I] \varphi$ & $\varphi$ must hold in at most fraction $p$ of the future states in the interval $I$.\\
-%   \cs{tlpastmaxprevalence} & $\tlpastmaxprevalence{p}[I] \varphi$ & $\varphi$ must have held in at most fraction $p$ of the past states in the interval $I$.\\
-%   \cs{tlbind} & $\tlbind{v.id}{i}$ & Saves the valuation $v.\mathrm{id}$ to the variable $i$ for later use in a nested formula, where $v$ already has a new value.
-% \end{tblr}
+%  \vspace{\baselineskip}
+%  \noindent
+%  \begin{tblr}{
+%   colspec={lcX},
+%   width=\textwidth,
+%   rowsep={3pt}
+%  }
+%   \textbf{Command} &
+%   \textbf{Symbolic} &
+%   \textbf{Semantics}\\
 %
-% \noindent
-% \emph{minPrevalence} and \emph{maxPrevalence} take the desired precentage as
-% another mandatory parameter. These operators may only be defined on finite
-% traces since they argue about numbers of states. \emph{bind} has no optional
-% interval but two mandatory arguments: the value to bind and the target
-% variable.
+%   \cs{tlminprevalence} &
+%   $\tlminprevalence{p}[I] \varphi$ & $\varphi$ must hold in at least
+%   fraction $p$ of the future states in the interval $I$.\\
+%
+%   \cs{tlpastminprevalence} &
+%   $\tlpastminprevalence{p}[I] \varphi$ & $\varphi$ must have held in at
+%   least fraction $p$ of the past states in the interval $I$.\\
+%
+%   \cs{tlmaxprevalence} &
+%   $\tlmaxprevalence{p}[I] \varphi$ & $\varphi$ must hold in at most
+%   fraction $p$ of the future states in the interval $I$.\\
+%
+%   \cs{tlpastmaxprevalence} &
+%   $\tlpastmaxprevalence{p}[I] \varphi$ & $\varphi$ must have held in at
+%   most fraction $p$ of the past states in the interval $I$.\\
+%
+%   \cs{tlbind} &
+%   $\tlbind{v.id}{i}$ &
+%   Saves the valuation $v.\mathrm{id}$ to the variable $i$ for later use in
+%   a nested formula, where $v$ already has a new value.
+%  \end{tblr}
+%
+%  \noindent
+%  \emph{minPrevalence} and \emph{maxPrevalence} take the desired percentage
+%  as another mandatory parameter. These operators may only be defined on
+%  finite traces since they argue about numbers of states. \emph{bind} has no
+%  optional interval but two mandatory arguments: the value to bind and the
+%  target variable.
 %
 % \clearpage
 % \subsection{Additional operators}
-% \label{sec:additional_operators}
-%  For convenience we now consider four additional operators which are not
-%  similar to any standard operators.
+%  \label{sec:additional_operators}
+%  For convenience, the package contains four additional operators:
 %
-% \begin{function}{
-%     \tlrise,
-%     \tlfall,
-%     \tlprophecy,
-%     \tlhistory
-%   }
+%  \begin{function}{
+%   \tlrise,
+%   \tlfall,
+%   \tlprophecy,
+%   \tlhistory}
 %   \begin{syntax}
-%     \cs{tlrise} \cs{varphi}
-%     \cs{tlfall} \cs{varphi}
-%     \cs{tlprophecy} \cs{varphi}
-%     \cs{tlhistory} \cs{varphi}
+%    \cs{tlrise} \cs{varphi}
+%    \cs{tlfall} \cs{varphi}
+%    \cs{tlprophecy} \cs{varphi}
+%    \cs{tlhistory} \cs{varphi}
 %   \end{syntax}
-% \end{function}
+%  \end{function}
 %
-% \noindent
-% The symbols only have a symbolic representation and get rendered independent from the selected display mode (cf.~Sect.~\ref{sec:mode}). The symbols and the semantics of the operators are listed below:
+%  \noindent
+%  The symbols only have a symbolic representation and get rendered
+%  independent from the selected display mode (cf.~Sect.~\ref{sec:options}).
+%  The symbols and the semantics of the operators are listed below:
 %
-% \vspace{\baselineskip}
-% \noindent
-% \begin{tblr}{
-%     colspec={lcX},
-%     width=\textwidth,
-%     rowsep={3pt}
-%   }
-%   \textbf{Command} & \textbf{Symbolic} & \textbf{Semantics}\\
-%   \cs{tlrise} &$\tlrise \varphi$ & Holds when $\varphi$ becomes true, i.e. $\varphi$ holds at this time but did not hold in the immediate past.\\
-%   \cs{tlfall} &$\tlfall \varphi$ & Holds when $\varphi$ becomes false, i.e. $\varphi$ does not hold at this time but held in the immediate past.\\
-%   \cs{tlprophecy} &$\tlprophecy \varphi$ & Holds when there exists a first moment in the future where $\varphi$ holds, and the moment is in the interval.\\
-%   \cs{tlhistory} &$\tlhistory \varphi$ & Holds when there exists a last moment in the past where $\varphi$ held, and the moment is in the interval.\\
-% \end{tblr}
+%  \vspace{\baselineskip}
+%  \noindent
+%  \begin{tblr}{
+%   colspec={lcX},
+%   width=\textwidth,
+%   rowsep={3pt}
+%  }
+%   \textbf{Command} &
+%   \textbf{Symbolic} &
+%   \textbf{Semantics}\\
 %
-% \clearpage
+%   \cs{tlrise} &
+%   $\tlrise \varphi$ &
+%   Holds when $\varphi$ becomes true, i.e. $\varphi$ holds at this time but
+%   did not hold in the immediate past.\\
+%
+%   \cs{tlfall} &
+%   $\tlfall \varphi$ &
+%   Holds when $\varphi$ becomes false, i.e. $\varphi$ does not hold at this
+%   time but held in the immediate past.\\
+%
+%   \cs{tlprophecy} &
+%   $\tlprophecy \varphi$ &
+%   Holds when there exists a first moment in the future where $\varphi$
+%   holds, and the moment is in the interval.\\
+%
+%   \cs{tlhistory} &
+%   $\tlhistory \varphi$ &
+%   Holds when there exists a last moment in the past where $\varphi$ held,
+%   and the moment is in the interval.
+%  \end{tblr}
+%
 % \section{Usage in formulas}
 % \label{sec:usage}
-%  The commands may be directly used in math mode to create composite formulas.
-%  For the unary formulas, the term $\varphi$ should directly follow the symbol:
+%  The commands may be directly used in math mode to create composite
+%  formulas. For the unary formulas, the term $\varphi$ should directly
+%  follow the symbol:
 %  \begin{syntax}
 %   \begin{tabular}{ll}
 %    \cs{tleventually}\cs{varphi} & $\tleventually \varphi$\\
@@ -394,157 +536,305 @@
 %   \end{tabular}
 %  \end{syntax}
 %
-%  \noindent The binary symbols \emph{until} and \emph{since} should be used
-%  with two formulas $\varphi$ and $\psi$ directly before and after the symbol:
+%  \noindent The binary symbols like \emph{until} should be used with two
+%  formulas $\varphi$ and $\psi$ directly before and after the symbol:
 %  \begin{syntax}
 %   \begin{tabular}{ll}
 %    \cs{varphi}\cs{tluntil}\cs{psi} & $\varphi \tluntil \psi$\\
-%    \cs{varphi}\cs{tlsince}[[0,1]]\cs{psi} & $\varphi \tlsince[[0,1]] \psi$
+%    \cs{varphi}\cs{tluntil}[[0,1]]\cs{psi} & $\varphi \tluntil[[0,1]] \psi$
 %   \end{tabular}
 %  \end{syntax}
 %
-% \noindent
-% The \emph{CMFTBL} operators may be used as the unary ones:
-% \begin{syntax}
-% \begin{tabular}{ll}
-%   \cs{tlminprevalence}\{0.8\}\cs{varphi} &
-%   $\tlminprevalence{0.8} \varphi$\\
-%   \cs{tlmaxprevalence}\{0.8\}[[0,1]]\cs{varphi} &
-%   $\tlmaxprevalence{0.8}[[0,1]] \varphi$\\
-%   \cs{tlbind}\{v.id\}\{i\}\cs{varphi} &
-%   $\tlbind{v.id}{i} \varphi$
-% \end{tabular}
-% \end{syntax}
+%  \noindent
+%  The \emph{CMFTBL} operators may be used as the unary ones:
+%  \begin{syntax}
+%   \begin{tabular}{ll}
+%    \cs{tlminprevalence}\{0.8\}\cs{varphi} &
+%    $\tlminprevalence{0.8} \varphi$\\
 %
-% \section{Standalone symbols}
-% \label{sec:standalone_symbols}
-% The package defines all symbols as a standalone version as
-% \emph{MathOperators} without additional spacing around for the usage in text.
+%    \cs{tlpastmaxprevalence}\{0.8\}[[0,1]]\cs{varphi} &
+%    $\tlmaxprevalence{0.8}[[0,1]] \varphi$\\
 %
-% \begin{function}{
-%   \tlsymbeventually,
-%   \tlsymbonce,
-%   \tlsymbglobally,
-%   \tlsymbhistorically,
-%   \tlsymbnext,
-%   \tlsymbprevious,
-%   \tlletteruntil,
-%   \tlsymbsince,
-%   \tlsymbminprevalence,
-%   \tlsymbpastminprevalence,
-%   \tlsymbmaxprevalence,
-%   \tlsymbpastmaxprevalence,
-%   \tlsymbbind}
-%   \begin{syntax}
-%   \begin{tabular}{lc}
-%     \cs{tlsymbeventually} & $\tlsymbeventually$\\
-%     \cs{tlsymbonce} & $\tlsymbonce$\\
-%     \cs{tlsymbglobally} & $\tlsymbglobally$\\
-%     \cs{tlsymbhistorically} & $\tlletterhistorically$\\
-%     \cs{tlsymbnext} & $\tlsymbnext$\\
-%     \cs{tlsymbprevious} & $\tlsymbprevious$\\
-%     \cs{tlletteruntil} & $\tlletteruntil$\\
-%     \cs{tlsymbsince} & $\tllettersince$\\
-%     \cs{tlsymbminprevalence} & $\tlsymbminprevalence$\\
-%     \cs{tlsymbpastminprevalence} & $\tlsymbpastminprevalence$\\
-%     \cs{tlsymbmaxprevalence} & $\tlsymbmaxprevalence$\\
-%     \cs{tlsymbpastmaxprevalence} & $\tlsymbpastmaxprevalence$\\
-%     \cs{tlsymbbind} & $\tlsymbbind$
-% \end{tabular}
-% \end{syntax}
-% \end{function}
+%    \cs{tlbind}\{v.id\}\{i\}\cs{varphi} &
+%    $\tlbind{v.id}{i} \varphi$
+%   \end{tabular}
+%  \end{syntax}
 %
-% \section{Operator scaling}
-% \label{sec:operator_scaling}
-% The operators scale automatically with the current text size:\\[\baselineskip]
-%
-% \begin{tabular}{ll}
-%   \Huge\cs{Huge} & \Huge$\tleventually[[0,1]] \varphi$\\
-%   \huge\cs{huge} & \huge$\tleventually[[0,1]] \varphi$\\
-%   \LARGE\cs{LARGE} & \LARGE$\tleventually[[0,1]] \varphi$\\
-%   \Large\cs{Large} & \Large$\tleventually[[0,1]] \varphi$\\
-%   \large\cs{large} & \large$\tleventually[[0,1]] \varphi$\\
-%   \normalsize\cs{normalsize} & \normalsize$\tleventually[[0,1]] \varphi$\\
-%   \small\cs{small} & \small$\tleventually[[0,1]] \varphi$\\
-%   \footnotesize\cs{footnotesize} & \footnotesize$\tleventually[[0,1]] \varphi$\\
-%   \scriptsize\cs{scriptsize} & \scriptsize$\tleventually[[0,1]] \varphi$\\
-%   \tiny\cs{tiny} & \tiny$\tleventually[[0,1]] \varphi$
-% \end{tabular}
-%
-% \normalsize
 % \clearpage
+% \section{Standalone symbols}
+%  \label{sec:standalone_symbols}
+%  The package defines all symbols as a standalone version as
+%  \emph{MathOperators} without additional spacing around for the usage in
+%   text.
 %
+%  \begin{function}{
+%   \tlopnext,
+%   \tlopfinally,
+%   \tlopeventually,
+%   \tlopglobally,
+%   \tlopuntil,
+%   \tloprelease,
+%   \tlopweakuntil,
+%   \tlopstrongrelease,
+%   \tlopmightyrelease,
+%   \tlyesterday,
+%   \tlprevious,
+%   \tlonce,
+%   \tlhistorically,
+%   \tlsince,
+%   \tlbackto,
+%   \tlweaksince,
+%   \tltrigger,
+%   \tlopminprevalence,
+%   \tloppastminprevalence,
+%   \tlopmaxprevalence,
+%   \tloppastmaxprevalence,
+%   \tlopbind,
+%   \tloprise,
+%   \tlopfall,
+%   \tlopprophecy,
+%   \tlophistory}
+%   \begin{syntax}
+%    \begin{tabular}{lc}
+%     \cs{tlopnext} & $\tlopnext$\\
+%     \cs{tlopfinally} & $\tlopfinally$\\
+%     \cs{tlopeventually} & $\tlopeventually$\\
+%     \cs{tlopglobally} & $\tlopglobally$\\
+%     \cs{tlopuntil} & $\tlopuntil$\\
+%     \cs{tloprelease} & $\tloprelease$\\
+%     \cs{tlopweakuntil} & $\tlopweakuntil$\\
+%     \cs{tlopstrongrelease} & $\tlopstrongrelease$\\
+%     \cs{tlopmightyrelease} & $\tlopmightyrelease$\\
+%     \cs{tlopyesterday} & $\tlopyesterday$\\
+%     \cs{tlopprevious} & $\tlopprevious$\\
+%     \cs{tloponce} & $\tloponce$\\
+%     \cs{tlophistorically} & $\tlophistorically$\\
+%     \cs{tlopsince} & $\tlopsince$\\
+%     \cs{tlopbackto} & $\tlopbackto$\\
+%     \cs{tlopweaksince} & $\tlopweaksince$\\
+%     \cs{tloptrigger} & $\tloptrigger$\\
+%     \cs{tlopminprevalence\{\}} & $\tlopminprevalence{}$\\
+%     \cs{tloppastminprevalence\{\}} & $\tloppastminprevalence{}$\\
+%     \cs{tlopmaxprevalence\{\}} & $\tlopmaxprevalence{}$\\
+%     \cs{tloppastmaxprevalence\{\}} & $\tloppastmaxprevalence{}$\\
+%     \cs{tlopbind\{\}\{\}} & $\tlopbind{}{}$\\
+%     \cs{tloprise} & $\tloprise$\\
+%     \cs{tlopfall} & $\tlopfall$\\
+%     \cs{tlopprophecy} & $\tlopprophecy$\\
+%     \cs{tlophistory} & $\tlophistory$\\
+%    \end{tabular}
+%   \end{syntax}
+%  \end{function}
+%
+% \section{Dependencies}
+%  The package loads the following dependencies:
+%  \begin{itemize}
+%   \item \emph{expl3} For \LaTeX 3 support.
+%   \item \emph{l3keys2e} For package option parsing.
+%   \item \emph{xparse} For parsing the mandatory and optional arguments.
+%   \item \emph{amsmath} For symbol definitions.
+%   \item \emph{tikz} For rendering of symbols.
+%  \end{itemize}
+%  \normalsize
+%
+% \clearpage
 % \section{License}
 % \begin{center}
-%   Copyright (C) 2025\\
-%   Dominik Schmid and Till Schallau\\[\baselineskip]
+%  Copyright (C) 2026\\
+%  Dominik Schmid\\[\baselineskip]
 %
-%   This work may be distributed and/or modified under the conditions of the\\ %   \LaTeX~Project Public License, either version 1.3c of this license\\
-%   or (at your option) any later version.\\[\baselineskip]
+%  This work may be distributed and/or modified under the conditions of the\\ %  \LaTeX~Project Public License, either version 1.3c of this license\\
+%  or (at your option) any later version.\\[\baselineskip]
 %
-%   The latest version of this license is in
-%   \url{http://www.latex-project.org/lppl.txt}\\
-%   and version 1.3c or later is part of all distributions of
-%   \LaTeX~version 2005/12/01 or later.\\[\baselineskip]
+%  The latest version of this license is in
+%  \url{http://www.latex-project.org/lppl.txt}\\
+%  and version 1.3c or later is part of all distributions of
+%  \LaTeX~version 2005/12/01 or later.\\[\baselineskip]
 %
-%   This work has the LPPL maintenance status ''maintained''.\\[\baselineskip]
+%  This work has the LPPL maintenance status ''maintained''.\\[\baselineskip]
 %
-%   The current maintainer of this work is\\
-%   Dominik Schmid <\href{mailto:dominik.schmid@tu-dortmund.de}
-%   {dominik.schmid@tu-dortmund.de>}.\\[\baselineskip]
+%  The current maintainer of this work is\\
+%  Dominik Schmid <\href{mailto:dominik.schmid@tu-dortmund.de}
+%  {dominik.schmid@tu-dortmund.de>}.\\[\baselineskip]
 %
-%   This work consists of the files temporal-logic.dtx, temporal-logic.ins,\\
-%   and the derived file temporal-logic.sty.
+%  This work consists of the files temporal-logic.dtx, temporal-logic.ins,\\
+%  and the derived file temporal-logic.sty.
 % \end{center}
+% \clearpage
 % \section{Sourcecode}
-% \label{sec:sourcecode}
+%  \label{sec:sourcecode}
 % \end{documentation}
 % \begin{implementation}
 %    \begin{macrocode}
 % <*package>
-% <@@=temporal_logic>
 
-\RequirePackage{amsmath}
+\ProvidesExplPackage
+ {temporal-logic}
+ { 2026-01-06 }
+ { v1.1 }
+ { Symbols for Temporal Logics }
+
 \RequirePackage{expl3}
+\RequirePackage{l3keys2e}
 \RequirePackage{xparse}
+\RequirePackage{amsmath}
 \RequirePackage{tikz}
 
-\ProvidesExplPackage {temporal-logic} { 2024-10-17 } { v1.0 }{
-  Symbols for Temporal Logics
+\ExplSyntaxOn
+
+\msg_new:nnn { temporallogic } { multiple-display-modes }
+{ Multiple~display~mode~options~given;~using~the~last~one. }
+
+\msg_new:nnn { temporallogic } { multiple-script-modes }
+{ Multiple~script~mode~options~given;~using~the~last~one. }
+
+\int_new:N \g_temporallogic_display_mode_int
+\int_new:N \g_temporallogic_script_mode_int
+\int_new:N \g_temporallogic_display_mode_count_int
+\int_new:N \g_temporallogic_script_mode_count_int
+\int_const:Nn \c_temporallogic_display_mode_bold     { 1 }
+\int_const:Nn \c_temporallogic_display_mode_letter   { 2 }
+\int_const:Nn \c_temporallogic_display_mode_symbolic { 3 }
+\int_const:Nn \c_temporallogic_script_mode_roman     { 1 }
+\int_const:Nn \c_temporallogic_script_mode_italic    { 2 }
+
+\keys_define:nn { temporallogic }
+{
+    displaymode .choice:,
+
+    displaymode / bold .code:n =
+    {
+        \int_gset:Nn \g_temporallogic_display_mode_int
+        { \c_temporallogic_display_mode_bold }
+        \int_gincr:N \g_temporallogic_display_mode_count_int
+    },
+
+    displaymode / letter .code:n =
+    {
+        \int_gset:Nn \g_temporallogic_display_mode_int
+        { \c_temporallogic_display_mode_letter }
+        \int_gincr:N \g_temporallogic_display_mode_count_int
+    },
+
+    displaymode / symbolic .code:n =
+    {
+        \int_gset:Nn \g_temporallogic_display_mode_int
+        { \c_temporallogic_display_mode_symbolic }
+        \int_gincr:N \g_temporallogic_display_mode_count_int
+    },
+
+    % default
+    displaymode .initial:n = symbolic,
+
+    % short forms
+    bold      .meta:n = { displaymode = bold },
+    letter    .meta:n = { displaymode = letter },
+    symbolic  .meta:n = { displaymode = symbolic },
+
+    scriptmode .choice:,
+    scriptmode / roman .code:n =
+    {
+        \int_gset:Nn \g_temporallogic_script_mode_int
+        { \c_temporallogic_script_mode_roman }
+        \int_gincr:N \g_temporallogic_script_mode_count_int
+    },
+    scriptmode / italic .code:n =
+    {
+        \int_gset:Nn \g_temporallogic_script_mode_int
+        { \c_temporallogic_script_mode_italic }
+        \int_gincr:N \g_temporallogic_script_mode_count_int
+    },
+    scriptmode .initial:n = roman,
+
+    % short forms
+    roman  .meta:n = { scriptmode = roman },
+    italic .meta:n = { scriptmode = italic },
 }
 
-\cs_new:Nn \__@@_op_sup_sub:Nnn {
+\ProcessKeysOptions { temporallogic }
+
+\int_compare:nNnT { \g_temporallogic_display_mode_count_int } > { 2 }
+{
+    \msg_warning:nn { temporallogic } { multiple-display-modes }
+}
+
+\int_compare:nNnT { \g_temporallogic_script_mode_count_int } > { 2 }
+{
+    \msg_warning:nn { temporallogic } { multiple-script-modes }
+}
+
+
+
+\cs_new:Nn \__temporal_logic_op_sup_sub:Nnn {
       \ensuremath {
         #1
-        \tl_if_empty:nF { #2 } { \c_math_superscript_token { \,\mathit{#2} } }
-        \tl_if_empty:nF { #3 } { \c_math_subscript_token { \,\mathit{#3} } }
+        \int_case:nnF { \g_temporallogic_script_mode_int }
+        {
+            {
+                \c_temporallogic_script_mode_roman}  {
+                    \tl_if_empty:nF { #2 } { \c_math_superscript_token
+                        { \,\mathrm{#2} } }
+                    \tl_if_empty:nF { #3 } { \c_math_subscript_token
+                        { \,\mathrm{#3} } }
+            }
+            {
+                \c_temporallogic_script_mode_italic} {
+                    \tl_if_empty:nF { #2 } { \c_math_superscript_token
+                        { \,\mathit{#2} } }
+                    \tl_if_empty:nF { #3 } { \c_math_subscript_token
+                        { \,\mathit{#3} } }
+                }
+            }{}
         \,
       }
 }
-\cs_generate_variant:Nn \__@@_op_sup_sub:Nnn { cnn }
+\cs_generate_variant:Nn \__temporal_logic_op_sup_sub:Nnn { cnn }
 
-\cs_new:Nn \__@@_op_sup:Nn { \__@@_op_sup_sub:Nnn { #1 } { #2 } {} }
-\cs_generate_variant:Nn \__@@_op_sup:Nn { cn }
+\cs_new:Nn \__temporal_logic_op_sup:Nn
+{ \__temporal_logic_op_sup_sub:Nnn { #1 } { #2 } {} }
+\cs_generate_variant:Nn \__temporal_logic_op_sup:Nn { cn }
 
-\cs_new:Nn \__@@_op_sub:Nn { \__@@_op_sup_sub:Nnn { #1 } { } { #2 } }
-\cs_generate_variant:Nn \__@@_op_sub:Nn { cn }
+\cs_new:Nn \__temporal_logic_op_sub:Nn
+{ \__temporal_logic_op_sup_sub:Nnn { #1 } { } { #2 } }
+\cs_generate_variant:Nn \__temporal_logic_op_sub:Nn { cn }
 
-\cs_new:Nn \__@@_op:N { \__@@_op_sup_sub:Nnn { #1 } { } { } }
-\cs_generate_variant:Nn \__@@_op:N { c }
+\cs_new:Nn \__temporal_logic_op:N
+{ \__temporal_logic_op_sup_sub:Nnn { #1 } { } { } }
+\cs_generate_variant:Nn \__temporal_logic_op:N { c }
 
-\dim_new:N \__@@_fht_dim
-\cs_new:Nn \__@@_ex: { \dim_use:N \__@@_fht_dim }
+\dim_new:N \__temporal_logic_fht_dim
+\cs_new:Nn \__temporal_logic_ex: { \dim_use:N \__temporal_logic_fht_dim }
 
-\cs_new:Nn \__@@_render_op:n {
-  \dim_set:Nn \__@@_fht_dim {\fontcharht\font`X}
+\cs_new:Nn \__temporal_logic_render_op:n {
+  \dim_set:Nn \__temporal_logic_fht_dim {\fontcharht\font`X}
   \tikz[execute~at~end~picture={
-       \useasboundingbox (0, 0) rectangle (\__@@_ex:, \__@@_ex:);
+       \useasboundingbox (0, 0)
+       rectangle
+       (\__temporal_logic_ex:, \__temporal_logic_ex:);
   }]{
     \group_begin:
-      \cs_set_eq:NN \EX \__@@_ex:
+      \cs_set_eq:NN \EX \__temporal_logic_ex:
       #1
     \group_end:
   }
+}
+
+
+
+\ProvideDocumentCommand \tldisplaymode {} {
+    \int_case:nnF { \g_temporallogic_display_mode_int }
+    {
+        {\c_temporallogic_display_mode_bold}     { Bold }
+        {\c_temporallogic_display_mode_letter}   { Letter }
+        {\c_temporallogic_display_mode_symbolic} { Symbolic }
+    }{}
+}
+\ProvideDocumentCommand \tlscriptmode {} {
+    \int_case:nnF { \g_temporallogic_script_mode_int }
+    {
+        {\c_temporallogic_script_mode_roman}  { Roman }
+        {\c_temporallogic_script_mode_italic} { Italic }
+    }{}
 }
 
 
@@ -557,7 +847,7 @@
     \ensuremath\mathcal{X}
 }
 \DeclareMathOperator { \tlsymbnext } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw
         (.5*\EX, .5*\EX)
         circle
@@ -565,8 +855,16 @@
     }
 }
 \ProvideDocumentCommand { \tlnext } { O{} } {
-    \__@@_op_sub:cn { tlsymbnext } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldnext }
+            {\c_temporallogic_display_mode_letter}   { tlletternext }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbnext }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tlopnext } { } { \tlnext\! }
 
 
 
@@ -578,7 +876,7 @@
     \ensuremath\mathcal{F}
 }
 \DeclareMathOperator { \tlsymbfinally } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw
         (.5*\EX, 0) --
         (.2*\EX, .5*\EX) --
@@ -588,8 +886,16 @@
     }
 }
 \ProvideDocumentCommand { \tlfinally } { O{} } {
-    \__@@_op_sub:cn { tlsymbfinally } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldfinally }
+            {\c_temporallogic_display_mode_letter}   { tlletterfinally }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbfinally }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tlopfinally } { } { \tlfinally\! }
 
 
 
@@ -598,8 +904,16 @@
 \DeclareMathOperator { \tllettereventually } { \tlletterfinally }
 \DeclareMathOperator { \tlsymbeventually } { \tlsymbfinally }
 \ProvideDocumentCommand { \tleventually } { O{} } {
-    \__@@_op_sub:cn { tlsymbeventually } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldeventually }
+            {\c_temporallogic_display_mode_letter}   { tllettereventually }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbeventually }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tlopeventually } { } { \tleventually\! }
 
 
 % Globally
@@ -610,7 +924,7 @@
     \ensuremath\mathcal{G}
 }
 \DeclareMathOperator { \tlsymbglobally } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw
         (.15*\EX, .15*\EX)
         rectangle
@@ -618,72 +932,113 @@
     }
 }
 \ProvideDocumentCommand { \tlglobally } { O{} } {
-    \__@@_op_sub:cn { tlsymbglobally } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldglobally }
+            {\c_temporallogic_display_mode_letter}   { tlletterglobally }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbglobally }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tlopglobally } { } { \tlglobally\! }
 
 
 
 % Until
 \DeclareMathOperator { \tlbolduntil } {
-    \ensuremath\mathbf{U}
+    \medspace\ensuremath\mathbf{U}
 }
 \DeclareMathOperator { \tlletteruntil } {
-    \ensuremath\mathcal{U}
+    \medspace\ensuremath\mathcal{U}
 }
 \DeclareMathOperator { \tlsymbuntil } {
-    \ensuremath\mathcal{U}
+    \medspace\ensuremath\mathcal{U}
 }
 \ProvideDocumentCommand { \tluntil } { O{} } {
-    \__@@_op_sub:Nn { \;\tlsymbuntil } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlbolduntil }
+            {\c_temporallogic_display_mode_letter}   { tlletteruntil }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbuntil }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tlopuntil } { } { \negmedspace\tluntil\! }
 
 
 
 % Release
 \DeclareMathOperator { \tlboldrelease } {
-    \ensuremath\mathbf{R}
+    \medspace\ensuremath\mathbf{R}
 }
 \DeclareMathOperator { \tlletterrelease } {
-    \ensuremath\mathcal{R}
+    \medspace\ensuremath\mathcal{R}
 }
 \DeclareMathOperator { \tlsymbrelease } {
-    \ensuremath\mathcal{R}
+    \medspace\ensuremath\mathcal{R}
 }
 \ProvideDocumentCommand { \tlrelease } { O{} } {
-    \__@@_op_sub:Nn { \;\tlsymbrelease } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldrelease }
+            {\c_temporallogic_display_mode_letter}   { tlletterrelease }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbrelease }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tloprelease } { } { \negmedspace\tlrelease\! }
 
 
 
 % Weak until
 \DeclareMathOperator { \tlboldweakuntil } {
-    \ensuremath\mathbf{W}
+    \medspace\ensuremath\mathbf{W}
 }
 \DeclareMathOperator { \tlletterweakuntil } {
-    \ensuremath\mathcal{W}
+    \medspace\ensuremath\mathcal{W}
 }
 \DeclareMathOperator { \tlsymbweakuntil } {
-    \ensuremath\mathcal{W}
+    \medspace\ensuremath\mathcal{W}
 }
 \ProvideDocumentCommand { \tlweakuntil } { O{} } {
-    \__@@_op_sub:Nn { \;\tlsymbweakuntil } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldweakuntil }
+            {\c_temporallogic_display_mode_letter}   { tlletterweakuntil }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbweakuntil }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tlopweakuntil } { } { \negmedspace\tlweakuntil\! }
 
 
 
 % Strong Release
 \DeclareMathOperator { \tlboldstrongrelease } {
-    \ensuremath\mathbf{M}
+    \medspace\ensuremath\mathbf{M}
 }
 \DeclareMathOperator { \tlletterstrongrelease } {
-    \ensuremath\mathcal{M}
+    \medspace\ensuremath\mathcal{M}
 }
 \DeclareMathOperator { \tlsymbstrongrelease } {
-    \ensuremath\mathcal{M}
+    \medspace\ensuremath\mathcal{M}
 }
 \ProvideDocumentCommand { \tlstrongrelease } { O{} } {
-    \__@@_op_sub:Nn { \;\tlsymbstrongrelease } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldstrongrelease }
+            {\c_temporallogic_display_mode_letter}   { tlletterstrongrelease }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbstrongrelease }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tlopstrongrelease } { }
+{ \negmedspace\tlstrongrelease\! }
 
 
 
@@ -692,8 +1047,17 @@
 \DeclareMathOperator { \tllettermightyrelease } { \tlletterstrongrelease }
 \DeclareMathOperator { \tlsymbmightyrelease } { \tlsymbstrongrelease }
 \ProvideDocumentCommand { \tlmightyrelease } { O{} } {
-    \__@@_op_sub:Nn { \;\tlsymbmightyrelease } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldmightyrelease }
+            {\c_temporallogic_display_mode_letter}   { tllettermightyrelease }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbmightyrelease }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tlopmightyrelease } { }
+{ \negmedspace\tlmightyrelease\! }
 
 
 
@@ -705,7 +1069,7 @@
     \ensuremath\mathcal{Y}
 }
 \DeclareMathOperator { \tlsymbyesterday } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw[fill]
         (.5*\EX, .5*\EX)
         circle
@@ -713,8 +1077,16 @@
     }
 }
 \ProvideDocumentCommand { \tlyesterday } { O{} } {
-    \__@@_op_sub:cn { tlsymbyesterday } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldyesterday }
+            {\c_temporallogic_display_mode_letter}   { tlletteryesterday }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbyesterday }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tlopyesterday } { } { \tlyesterday\! }
 
 
 
@@ -723,8 +1095,16 @@
 \DeclareMathOperator { \tlletterprevious } { \tlletteryesterday }
 \DeclareMathOperator { \tlsymbprevious } { \tlsymbyesterday }
 \ProvideDocumentCommand { \tlprevious } { O{} } {
-    \__@@_op_sub:cn { tlsymbprevious } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldprevious }
+            {\c_temporallogic_display_mode_letter}   { tlletterprevious }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbprevious }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tlopprevious } { } { \tlprevious\! }
 
 
 % Once
@@ -735,7 +1115,7 @@
     \ensuremath\mathcal{O}
 }
 \DeclareMathOperator { \tlsymbonce } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw[fill]
         (.5*\EX, 0) --
         (.2*\EX, .5*\EX) --
@@ -745,8 +1125,16 @@
     }
 }
 \ProvideDocumentCommand { \tlonce } { O{} } {
-    \__@@_op_sub:cn { tlsymbonce } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldonce }
+            {\c_temporallogic_display_mode_letter}   { tlletteronce }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbonce }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tloponce } { } { \tlonce\! }
 
 
 
@@ -758,7 +1146,7 @@
     \ensuremath\mathcal{H}
 }
 \DeclareMathOperator { \tlsymbhistorically } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw[fill]
         (.15*\EX, .15*\EX)
         rectangle
@@ -766,78 +1154,117 @@
     }
 }
 \ProvideDocumentCommand { \tlhistorically } { O{} } {
-    \__@@_op_sub:cn { tlsymbhistorically } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldhistorically }
+            {\c_temporallogic_display_mode_letter}   { tlletterhistorically }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbhistorically }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tlophistorically } { } { \tlhistorically\! }
 
 
 
 % Since
 \DeclareMathOperator { \tlboldsince } {
-    \ensuremath\mathbf{S}
+    \medspace\ensuremath\mathbf{S}
 }
 \DeclareMathOperator { \tllettersince } {
-    \ensuremath\mathcal{S}
+    \medspace\ensuremath\mathcal{S}
 }
 \DeclareMathOperator { \tlsymbsince } {
-    \ensuremath\mathcal{S}
+    \medspace\ensuremath\mathcal{S}
 }
 \ProvideDocumentCommand { \tlsince } { O{} } {
-    \__@@_op_sub:Nn { \;\tlsymbsince } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldsince }
+            {\c_temporallogic_display_mode_letter}   { tllettersince }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbsince }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tlopsince } { } { \negmedspace\tlsince\!}
 
 
 
 % Back to
 \DeclareMathOperator { \tlboldbackto } {
-    \ensuremath\mathbf{B}
+    \medspace\ensuremath\mathbf{B}
 }
 \DeclareMathOperator { \tlletterbackto } {
-    \ensuremath\mathcal{B}
+    \medspace\ensuremath\mathcal{B}
 }
 \DeclareMathOperator { \tlsymbbackto } {
-    \ensuremath\mathcal{B}
+    \medspace\ensuremath\mathcal{B}
 }
 \ProvideDocumentCommand { \tlbackto } { O{} } {
-    \__@@_op_sub:Nn { \;\tlsymbbackto } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldbackto }
+            {\c_temporallogic_display_mode_letter}   { tlletterbackto }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbbackto }
+        }{}
+    } { #1 }
 }
-
+\ProvideDocumentCommand { \tlopbackto } { } { \negmedspace\tlbackto\! }
 
 
 % Weak Since
 \DeclareMathOperator { \tlboldweaksince } {
-    \ensuremath\mathbf{WS}
+    \medspace\ensuremath\mathbf{WS}
 }
 \DeclareMathOperator { \tlletterweaksince } {
-    \ensuremath\mathcal{WS}
+    \medspace\ensuremath\mathcal{WS}
 }
 \DeclareMathOperator { \tlsymbweaksince } {
-    \ensuremath\mathcal{WS}
+    \medspace\ensuremath\mathcal{WS}
 }
 \ProvideDocumentCommand { \tlweaksince } { O{} } {
-    \__@@_op_sub:Nn { \;\tlsymbweaksince } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldweaksince }
+            {\c_temporallogic_display_mode_letter}   { tlletterweaksince }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbweaksince }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tlopweaksince } { } { \negmedspace\tlweaksince\! }
 
 
 
 % Trigger
 \DeclareMathOperator { \tlboldtrigger } {
-    \ensuremath\mathbf{T}
+    \medspace\ensuremath\mathbf{T}
 }
 \DeclareMathOperator { \tllettertrigger } {
-    \ensuremath\mathcal{T}
+    \medspace\ensuremath\mathcal{T}
 }
 \DeclareMathOperator { \tlsymbtrigger } {
-    \ensuremath\mathcal{T}
+    \medspace\ensuremath\mathcal{T}
 }
 \ProvideDocumentCommand { \tltrigger } { O{} } {
-    \__@@_op_sub:Nn { \;\tlsymbtrigger } { #1 }
+    \__temporal_logic_op_sub:cn {
+        \int_case:nnF { \g_temporallogic_display_mode_int }
+        {
+            {\c_temporallogic_display_mode_bold}     { tlboldtrigger }
+            {\c_temporallogic_display_mode_letter}   { tllettertrigger }
+            {\c_temporallogic_display_mode_symbolic} { tlsymbtrigger }
+        }{}
+    } { #1 }
 }
+\ProvideDocumentCommand { \tloptrigger } { } { \negmedspace\tltrigger\! }
 
 
 
-% Min-/Max prevalence, Bind
+% Min-/Max prevalence
 \DeclareMathOperator { \tlsymbminprevalence } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw
         (.1*\EX, .9*\EX) --
         (.9*\EX, .9*\EX) --
@@ -846,7 +1273,7 @@
     }
 }
 \DeclareMathOperator { \tlsymbpastminprevalence } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw[fill]
         (.1*\EX, .9*\EX) --
         (.9*\EX, .9*\EX) --
@@ -855,7 +1282,7 @@
     }
 }
 \DeclareMathOperator { \tlsymbmaxprevalence } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw
         (.1*\EX, .1*\EX) --
         (.9*\EX, .1*\EX) --
@@ -864,7 +1291,7 @@
     }
 }
 \DeclareMathOperator { \tlsymbpastmaxprevalence } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw[fill]
         (.1*\EX, .1*\EX) --
         (.9*\EX, .1*\EX) --
@@ -872,8 +1299,32 @@
         cycle;
     }
 }
+\ProvideDocumentCommand { \tlminprevalence } { m O{} } {
+    \__temporal_logic_op_sup_sub:cnn { tlsymbminprevalence } { #1 } { #2 }
+}
+\ProvideDocumentCommand { \tlpastminprevalence } { m O{} } {
+    \__temporal_logic_op_sup_sub:cnn { tlsymbpastminprevalence } { #1 } { #2 }
+}
+\ProvideDocumentCommand { \tlmaxprevalence } { m O{} } {
+    \__temporal_logic_op_sup_sub:cnn { tlsymbmaxprevalence } { #1 } { #2 }
+}
+\ProvideDocumentCommand { \tlpastmaxprevalence } { m O{} } {
+    \__temporal_logic_op_sup_sub:cnn { tlsymbpastmaxprevalence } { #1 } { #2 }
+}
+\ProvideDocumentCommand { \tlopminprevalence } { m }
+{ \tlminprevalence{#1}\! }
+\ProvideDocumentCommand { \tloppastminprevalence } { m }
+{ \tlpastminprevalence{#1}\! }
+\ProvideDocumentCommand { \tlopmaxprevalence } { m }
+{ \tlmaxprevalence{#1}\! }
+\ProvideDocumentCommand { \tloppastmaxprevalence } { m }
+{ \tlpastmaxprevalence{#1}\! }
+
+
+
+% Bind
 \DeclareMathOperator { \tlsymbbind } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw (.5*\EX, \EX) -- (.5*\EX, 0);
         \draw
         (.2*\EX, .3*\EX) ..
@@ -883,89 +1334,82 @@
         (.8*\EX, .3*\EX);
     }
 }
-\ProvideDocumentCommand { \tlminprevalence } { m O{} } {
-    \__@@_op_sup_sub:cnn { tlsymbminprevalence } { #1 } { #2 }
-}
-\ProvideDocumentCommand { \tlpastminprevalence } { m O{} } {
-    \__@@_op_sup_sub:cnn { tlsymbpastminprevalence } { #1 } { #2 }
-}
-\ProvideDocumentCommand { \tlmaxprevalence } { m O{} } {
-    \__@@_op_sup_sub:cnn { tlsymbmaxprevalence } { #1 } { #2 }
-}
-\ProvideDocumentCommand { \tlpastmaxprevalence } { m O{} } {
-    \__@@_op_sup_sub:cnn { tlsymbpastmaxprevalence } { #1 } { #2 }
-}
 \ProvideDocumentCommand { \tlbind } { m m } {
-    \__@@_op_sup_sub:cnn { tlsymbbind } { #1 } { #2 }
+    \__temporal_logic_op_sup_sub:cnn { tlsymbbind } { #1 } { #2 }
 }
+\ProvideDocumentCommand { \tlopbind } { m m } { \tlbind{ {#1} }{ {#2} } }
 
 
 
 % Rise
 \DeclareMathOperator { \tlsymbrise } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw
         (.1*\EX, .1*\EX) --
         (.9*\EX, .9*\EX);
-        \draw 
+        \draw
         (.4*\EX, .9*\EX) --
         (.9*\EX, .9*\EX) --
         (.9*\EX, .4*\EX);
     }
-} % TODO
-\ProvideDocumentCommand { \tlrise } { O{} } {
-    \__@@_op_sub:cn { tlsymbrise } { #1 }
 }
+\ProvideDocumentCommand { \tlrise } { O{} } {
+    \__temporal_logic_op_sub:cn { tlsymbrise } { #1 }
+}
+\ProvideDocumentCommand { \tloprise } { } { \tlrise\! }
 
 
 
 % Fall
 \DeclareMathOperator { \tlsymbfall } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw
         (.1*\EX, .9*\EX) --
         (.9*\EX, .1*\EX);
-        \draw 
+        \draw
         (.4*\EX, .1*\EX) --
         (.9*\EX, .1*\EX) --
         (.9*\EX, .6*\EX);
     }
-} % TODO
-\ProvideDocumentCommand { \tlfall } { O{} } {
-    \__@@_op_sub:cn { tlsymbfall } { #1 }
 }
-
+\ProvideDocumentCommand { \tlfall } { O{} } {
+    \__temporal_logic_op_sub:cn { tlsymbfall } { #1 }
+}
+\ProvideDocumentCommand { \tlopfall } { } { \tlfall\! }
 
 
 % Prophecy
 \DeclareMathOperator { \tlsymbprophecy } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw
         (.1*\EX, .1*\EX) --
         (.1*\EX, .9*\EX) --
         (.9*\EX, .5*\EX) --
         cycle;
     }
-} % TODO
-\ProvideDocumentCommand { \tlprophecy } { O{} } {
-    \__@@_op_sub:cn { tlsymbprophecy } { #1 }
 }
+\ProvideDocumentCommand { \tlprophecy } { O{} } {
+    \__temporal_logic_op_sub:cn { tlsymbprophecy } { #1 }
+}
+\ProvideDocumentCommand { \tlopprophecy } { } { \tlprophecy\! }
 
 
 
 % History
 \DeclareMathOperator { \tlsymbhistory } {
-    \__@@_render_op:n {
+    \__temporal_logic_render_op:n {
         \draw
         (.9*\EX, .1*\EX) --
         (.9*\EX, .9*\EX) --
         (.1*\EX, .5*\EX) --
         cycle;
     }
-} % TODO
-\ProvideDocumentCommand { \tlhistory } { O{} } {
-    \__@@_op_sub:cn { tlsymbhistory } { #1 }
 }
+\ProvideDocumentCommand { \tlhistory } { O{} } {
+    \__temporal_logic_op_sub:cn { tlsymbhistory } { #1 }
+}
+\ProvideDocumentCommand { \tlophistory } { } { \tlhistory\! }
+\ExplSyntaxOff
 % </package>
 %    \end{macrocode}
 % \end{implementation}

@@ -20,7 +20,7 @@ package you can do this with the following steps:
 
 ## Copyright and License
 
-Copyright (C) 2024 Dominik Schmid and Till Schallau
+Copyright (C) 2026 Dominik Schmid
 
 This work may be distributed and/or modified under the conditions of the LaTeX
 Project Public License, either version 1.3c of this license or (at your option)
